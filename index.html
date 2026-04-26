@@ -6,215 +6,200 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="팀 스케줄">
-<meta name="theme-color" content="#1a73e8">
-<!-- 다크모드 강제 비활성화 -->
+<meta name="theme-color" content="#4a5568">
 <meta name="color-scheme" content="light only">
 <title>팀 스케줄</title>
 <style>
-:root { color-scheme: light only; }
-* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "맑은 고딕", sans-serif;
-  background: #f8f9fa !important; color: #202124 !important;
-  /* 다크모드 강제 무시 */
-  forced-color-adjust: none;
-}
 :root {
-  --primary: #1a73e8; --primary-dark: #1557b0;
-  --bg: #f8f9fa; --card: #ffffff; --text: #202124; --text-sub: #5f6368;
-  --border: #e0e0e0; --danger: #d93025; --success: #188038;
-  --holiday: #d93025; --shadow: 0 2px 8px rgba(0,0,0,0.12);
+  color-scheme: light only;
+  /* 상단바 색상 - 진한 파랑 → 차분한 슬레이트 그레이 블루 */
+  --primary: #4a5568;
+  --primary-dark: #2d3748;
+  --primary-light: #718096;
+  --accent: #667eea;
+  --bg: #f7f8fa;
+  --card: #ffffff;
+  --text: #2d3748;
+  --text-sub: #718096;
+  --border: #e2e8f0;
+  --danger: #e53e3e;
+  --success: #38a169;
+  --holiday: #e53e3e;
+  --shadow: 0 2px 8px rgba(0,0,0,0.10);
 }
+* { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
+body { font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","맑은 고딕",sans-serif; background:#f7f8fa !important; color:#2d3748 !important; forced-color-adjust:none; }
 
-.type-연차{background:#ea4335}.type-휴가{background:#34a853}.type-병가{background:#9c27b0}
-.type-출장{background:#ff9800}.type-회의{background:#1a73e8}.type-교육{background:#00bcd4}.type-기타{background:#607d8b}
-.dot-연차{background:#ea4335}.dot-휴가{background:#34a853}.dot-병가{background:#9c27b0}
-.dot-출장{background:#ff9800}.dot-회의{background:#1a73e8}.dot-교육{background:#00bcd4}.dot-기타{background:#607d8b}
+.type-연차{background:#e53e3e}.type-휴가{background:#38a169}.type-병가{background:#805ad5}
+.type-출장{background:#dd6b20}.type-회의{background:#3182ce}.type-교육{background:#00bcd4}.type-기타{background:#718096}
+.dot-연차{background:#e53e3e}.dot-휴가{background:#38a169}.dot-병가{background:#805ad5}
+.dot-출장{background:#dd6b20}.dot-회의{background:#3182ce}.dot-교육{background:#00bcd4}.dot-기타{background:#718096}
 
-/* 로그인/가입 */
-#loginPage { min-height:100vh; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,#1a73e8 0%,#0d47a1 100%) !important; }
-.auth-box { background:#ffffff !important; border-radius:16px; padding:36px 28px; width:90%; max-width:380px; box-shadow:0 8px 32px rgba(0,0,0,0.2); }
+/* ===== 로그인 ===== */
+#loginPage { min-height:100vh; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,#4a5568 0%,#2d3748 100%) !important; }
+.auth-box { background:#fff !important; border-radius:20px; padding:36px 28px; width:90%; max-width:380px; box-shadow:0 12px 40px rgba(0,0,0,0.2); }
 .auth-box h1 { font-size:24px; margin-bottom:6px; color:var(--primary); }
 .auth-box p { color:var(--text-sub); margin-bottom:24px; font-size:14px; }
 .auth-tabs { display:flex; margin-bottom:24px; border-bottom:2px solid var(--border); }
 .auth-tab { flex:1; padding:10px; text-align:center; font-size:14px; font-weight:600; color:var(--text-sub); cursor:pointer; border-bottom:3px solid transparent; transition:all 0.2s; background:none; border-top:none; border-left:none; border-right:none; }
-.auth-tab.active { color:var(--primary); border-bottom-color:var(--primary); }
+.auth-tab.active { color:var(--accent); border-bottom-color:var(--accent); }
 .auth-panel { display:none; }
 .auth-panel.active { display:block; }
 .input-group { margin-bottom:14px; }
 .input-group label { display:block; font-size:13px; color:var(--text-sub); margin-bottom:6px; font-weight:600; }
-.input-group input { width:100%; padding:12px 14px; border:1.5px solid var(--border); border-radius:8px; font-size:15px; outline:none; transition:border 0.2s; font-family:inherit; background:#fff !important; color:#202124 !important; }
-.input-group input:focus { border-color:var(--primary); }
+.input-group input { width:100%; padding:12px 14px; border:1.5px solid var(--border); border-radius:10px; font-size:15px; outline:none; transition:border 0.2s; font-family:inherit; background:#fff !important; color:#2d3748 !important; }
+.input-group input:focus { border-color:var(--accent); }
 .input-hint { font-size:12px; color:var(--text-sub); margin-top:5px; }
-.btn-primary { width:100%; padding:13px; background:var(--primary); color:white; border:none; border-radius:8px; font-size:16px; font-weight:600; cursor:pointer; transition:background 0.2s; font-family:inherit; }
+.btn-primary { width:100%; padding:13px; background:var(--primary); color:white; border:none; border-radius:10px; font-size:16px; font-weight:600; cursor:pointer; transition:background 0.2s; font-family:inherit; }
 .btn-primary:hover { background:var(--primary-dark); }
 .error-msg { color:var(--danger); font-size:13px; margin-top:10px; text-align:center; min-height:18px; }
 .success-msg { color:var(--success); font-size:13px; margin-top:10px; text-align:center; }
 
-/* 앱 */
-#app { display:none; flex-direction:column; min-height:100vh; background:#f8f9fa !important; }
-.topbar { background:var(--primary) !important; color:white !important; padding:14px 16px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:100; box-shadow:var(--shadow); }
-.topbar h1 { font-size:18px; font-weight:700; color:white !important; }
-.topbar-right { display:flex; align-items:center; gap:8px; }
-.user-badge { background:rgba(255,255,255,0.2); border-radius:20px; padding:4px 12px; font-size:13px; color:white !important; }
-.role-badge { border-radius:12px; padding:2px 8px; font-size:11px; font-weight:600; color:white !important; }
-.role-badge.master { background:#d93025; }
-.role-badge.manager { background:#ff9800; }
-.role-badge.member { background:rgba(255,255,255,0.3); }
-.btn-icon { background:none; border:none; color:white !important; cursor:pointer; font-size:20px; padding:4px; }
+/* ===== 앱 레이아웃 ===== */
+#app { display:none; flex-direction:column; min-height:100vh; background:#f7f8fa !important; }
 
-.tabs { display:flex; background:#ffffff !important; border-bottom:2px solid var(--border); position:sticky; top:52px; z-index:99; overflow-x:auto; }
-.tab { flex:1; min-width:60px; padding:12px 4px; text-align:center; font-size:13px; font-weight:600; color:var(--text-sub); cursor:pointer; border-bottom:3px solid transparent; transition:all 0.2s; border:none; background:none; white-space:nowrap; }
-.tab.active { color:var(--primary); border-bottom-color:var(--primary); }
-.tab .badge { background:var(--danger); color:white; border-radius:10px; padding:1px 6px; font-size:11px; margin-left:4px; }
+/* 상단바 - 차분한 슬레이트 톤 */
+.topbar { background:linear-gradient(135deg,#4a5568 0%,#2d3748 100%) !important; color:white !important; padding:14px 16px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:100; box-shadow:0 2px 10px rgba(0,0,0,0.15); }
+.topbar h1 { font-size:18px; font-weight:700; color:white !important; letter-spacing:-0.3px; }
+.topbar-right { display:flex; align-items:center; gap:8px; }
+.user-badge { background:rgba(255,255,255,0.15); border-radius:20px; padding:4px 12px; font-size:13px; color:white !important; backdrop-filter:blur(4px); }
+.role-badge { border-radius:12px; padding:3px 10px; font-size:11px; font-weight:700; color:white !important; }
+.role-badge.master { background:#e53e3e; }
+.role-badge.manager { background:#dd6b20; }
+.role-badge.member { background:rgba(255,255,255,0.25); }
+.btn-icon { background:rgba(255,255,255,0.1); border:none; color:white !important; cursor:pointer; font-size:16px; padding:6px 10px; border-radius:8px; transition:background 0.2s; }
+.btn-icon:hover { background:rgba(255,255,255,0.2); }
+
+/* 탭바 */
+.tabs { display:flex; background:#ffffff !important; border-bottom:1px solid var(--border); position:sticky; top:52px; z-index:99; overflow-x:auto; box-shadow:0 1px 4px rgba(0,0,0,0.06); }
+.tab { flex:1; min-width:60px; padding:12px 4px; text-align:center; font-size:12px; font-weight:600; color:var(--text-sub); cursor:pointer; border-bottom:2px solid transparent; transition:all 0.2s; border-top:none; border-left:none; border-right:none; background:none; white-space:nowrap; }
+.tab.active { color:var(--accent); border-bottom-color:var(--accent); }
+.tab .badge { background:var(--danger); color:white; border-radius:10px; padding:1px 6px; font-size:11px; margin-left:3px; }
 
 .content { padding:16px; max-width:800px; margin:0 auto; width:100%; }
 
-/* 달력 - 칸 고정 핵심 */
+/* ===== 달력 ===== */
 .calendar-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
-.calendar-header h2 { font-size:18px; font-weight:700; color:#202124 !important; }
-.btn-nav { background:#ffffff !important; border:1.5px solid var(--border); border-radius:8px; padding:6px 14px; cursor:pointer; font-size:16px; color:#202124 !important; }
-.cal-grid { background:#ffffff !important; border-radius:12px; overflow:hidden; box-shadow:var(--shadow); margin-bottom:16px; }
-.cal-weekdays { display:grid; grid-template-columns:repeat(7,1fr); background:#f8f9fa !important; padding:8px 0; }
-.cal-weekday { text-align:center; font-size:12px; font-weight:600; color:var(--text-sub); padding:4px 0; }
-.cal-weekday:first-child { color:#d93025; }
-.cal-weekday:last-child { color:#1a73e8; }
+.calendar-header h2 { font-size:18px; font-weight:700; color:#2d3748 !important; }
+.btn-nav { background:#fff !important; border:1.5px solid var(--border); border-radius:10px; padding:7px 14px; cursor:pointer; font-size:16px; color:#2d3748 !important; transition:all 0.2s; }
+.btn-nav:hover { background:#f0f0f0 !important; }
+.cal-grid { background:#fff !important; border-radius:16px; overflow:hidden; box-shadow:var(--shadow); margin-bottom:16px; touch-action:pan-y; user-select:none; }
+.cal-weekdays { display:grid; grid-template-columns:repeat(7,1fr); background:#f7f8fa !important; padding:8px 0; }
+.cal-weekday { text-align:center; font-size:11px; font-weight:700; color:var(--text-sub); padding:4px 0; letter-spacing:0.5px; }
+.cal-weekday:first-child { color:#e53e3e; }
+.cal-weekday:last-child { color:#3182ce; }
 .cal-days { display:grid; grid-template-columns:repeat(7,1fr); }
 
-/* ★ 칸 크기 고정 - 이게 핵심 */
-.cal-day {
-  height: 72px;          /* 고정 높이 */
-  overflow: hidden;      /* 넘치면 숨김 */
-  padding: 4px;
-  border-top: 1px solid var(--border);
-  border-right: 1px solid var(--border);
-  cursor: pointer;
-  transition: background 0.15s;
-  position: relative;
-  background: #ffffff !important;
-}
-.cal-day:hover { background:#f0f4ff !important; }
+/* 달력 칸 고정 */
+.cal-day { height:72px; overflow:hidden; padding:4px; border-top:1px solid var(--border); border-right:1px solid #f0f0f0; cursor:pointer; transition:background 0.15s; position:relative; background:#fff !important; }
+.cal-day:hover { background:#f8f9ff !important; }
 .cal-day.other-month { background:#fafafa !important; }
-.cal-day.other-month .day-num { color:#ccc !important; }
-.cal-day.today { background:#e8f0fe !important; }
-.cal-day.today .day-num { background:var(--primary) !important; color:white !important; border-radius:50%; width:22px; height:22px; display:flex; align-items:center; justify-content:center; }
+.cal-day.other-month .day-num { color:#d0d0d0 !important; }
+.cal-day.today { background:#eef2ff !important; }
+.cal-day.today .day-num { background:var(--accent); color:white !important; border-radius:50%; width:22px; height:22px; display:flex; align-items:center; justify-content:center; }
 .cal-day.holiday-day { background:#fff5f5 !important; }
 .cal-day.holiday-day .day-num { color:var(--holiday) !important; }
-.cal-day.selected { background:#fff3e0 !important; }
-.day-num { font-size:13px; font-weight:500; margin-bottom:1px; width:22px; height:22px; display:flex; align-items:center; justify-content:center; color:#202124 !important; }
-.cal-day:nth-child(7n+1) .day-num { color:#d93025 !important; }
-.cal-day:nth-child(7n) .day-num { color:#1a73e8 !important; }
-
-/* ★ 공휴일 이름 말줄임표 */
-.day-holiday-name {
-  font-size: 9px;
-  color: var(--holiday);
-  font-weight: 600;
-  line-height: 1.2;
-  margin-bottom: 2px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;  /* 말줄임표 */
-  max-width: 100%;
-}
+.cal-day.selected { background:#fffbf0 !important; outline:2px solid var(--accent); outline-offset:-1px; }
+.day-num { font-size:13px; font-weight:500; margin-bottom:1px; width:22px; height:22px; display:flex; align-items:center; justify-content:center; color:#2d3748 !important; }
+.cal-day:nth-child(7n+1) .day-num { color:#e53e3e !important; }
+.cal-day:nth-child(7n) .day-num { color:#3182ce !important; }
+.day-holiday-name { font-size:9px; color:var(--holiday); font-weight:600; line-height:1.2; margin-bottom:2px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; max-width:100%; }
 .day-events { display:flex; flex-wrap:wrap; gap:1px; }
 .day-dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
 .attendance-count { font-size:10px; font-weight:600; position:absolute; bottom:3px; right:4px; }
 .attendance-ok { color:var(--success); }
 .attendance-low { color:var(--danger); }
 
-/* 범례 */
-.legend { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; background:#ffffff !important; padding:12px; border-radius:10px; box-shadow:var(--shadow); }
-.legend-item { display:flex; align-items:center; gap:5px; font-size:12px; color:#202124 !important; }
+/* 범례 - 공휴일, 교육 제거 */
+.legend { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; background:#fff !important; padding:12px; border-radius:12px; box-shadow:var(--shadow); }
+.legend-item { display:flex; align-items:center; gap:5px; font-size:12px; color:#2d3748 !important; }
 .legend-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
-.legend-holiday { background:var(--holiday); }
 
 /* 날짜 상세 */
-.day-detail { background:#ffffff !important; border-radius:12px; box-shadow:var(--shadow); padding:16px; margin-bottom:16px; display:none; }
+.day-detail { background:#fff !important; border-radius:16px; box-shadow:var(--shadow); padding:16px; margin-bottom:16px; display:none; }
 .day-detail.show { display:block; }
-.day-detail h3 { font-size:16px; font-weight:700; margin-bottom:4px; color:#202124 !important; }
-.holiday-banner { background:#fff0f0; border:1px solid #ffcdd2; border-radius:8px; padding:8px 12px; margin-bottom:10px; font-size:13px; color:var(--holiday); font-weight:600; }
-.attendance-info { font-size:13px; color:var(--text-sub); margin-bottom:12px; }
+.day-detail h3 { font-size:16px; font-weight:700; margin-bottom:4px; color:#2d3748 !important; }
+.holiday-banner { background:#fff5f5; border:1px solid #fed7d7; border-radius:10px; padding:8px 12px; margin-bottom:10px; font-size:13px; color:var(--holiday); font-weight:600; }
+.attendance-info { font-size:14px; color:var(--text-sub); margin-bottom:12px; font-weight:600; }
 .schedule-list { display:flex; flex-direction:column; gap:8px; }
-.schedule-item { display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:8px; background:#f8f9fa !important; flex-wrap:wrap; }
+.schedule-item { display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:10px; background:#f7f8fa !important; flex-wrap:wrap; }
 .schedule-type-badge { color:white; font-size:11px; font-weight:700; padding:3px 8px; border-radius:12px; white-space:nowrap; flex-shrink:0; }
 .schedule-info { flex:1; min-width:80px; }
-.schedule-name { font-size:14px; font-weight:600; color:#202124 !important; }
+.schedule-name { font-size:14px; font-weight:600; color:#2d3748 !important; }
 .schedule-note { font-size:12px; color:var(--text-sub); }
 .schedule-actions { display:flex; gap:4px; flex-wrap:wrap; align-items:center; }
-.status-pending { color:#ff9800; font-size:12px; font-weight:600; }
+.status-pending { color:#dd6b20; font-size:12px; font-weight:600; }
 .status-approved { color:var(--success); font-size:12px; font-weight:600; }
-.status-rejected { color:var(--danger); font-size:12px; font-weight:600; }
-.btn-approve { background:var(--success); color:white; border:none; border-radius:6px; padding:4px 10px; font-size:12px; cursor:pointer; }
-.btn-reject { background:var(--danger); color:white; border:none; border-radius:6px; padding:4px 10px; font-size:12px; cursor:pointer; }
-.btn-delete { background:#9e9e9e; color:white; border:none; border-radius:6px; padding:4px 10px; font-size:12px; cursor:pointer; }
+.btn-approve { background:var(--success); color:white; border:none; border-radius:6px; padding:4px 10px; font-size:12px; cursor:pointer; font-family:inherit; }
+.btn-delete { background:#a0aec0; color:white; border:none; border-radius:6px; padding:4px 10px; font-size:12px; cursor:pointer; font-family:inherit; }
 
 /* 카드/폼 */
-.card { background:#ffffff !important; border-radius:12px; box-shadow:var(--shadow); padding:20px; margin-bottom:16px; }
+.card { background:#fff !important; border-radius:16px; box-shadow:var(--shadow); padding:20px; margin-bottom:16px; }
 .card h3 { font-size:16px; font-weight:700; margin-bottom:16px; color:var(--primary); }
 .form-group { margin-bottom:14px; }
 .form-group label { display:block; font-size:13px; font-weight:600; color:var(--text-sub); margin-bottom:6px; }
-.form-group input, .form-group select, .form-group textarea { width:100%; padding:11px 13px; border:1.5px solid var(--border); border-radius:8px; font-size:14px; outline:none; transition:border 0.2s; font-family:inherit; background:#fff !important; color:#202124 !important; }
-.form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color:var(--primary); }
+.form-group input,.form-group select,.form-group textarea { width:100%; padding:11px 13px; border:1.5px solid var(--border); border-radius:10px; font-size:14px; outline:none; transition:border 0.2s; font-family:inherit; background:#fff !important; color:#2d3748 !important; }
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus { border-color:var(--accent); }
 .form-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
 .type-select { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:14px; }
-.type-btn { padding:10px 4px; border:2px solid var(--border); border-radius:8px; background:#ffffff !important; font-size:13px; cursor:pointer; text-align:center; font-weight:600; transition:all 0.2s; color:var(--text-sub); font-family:inherit; }
-.type-btn.selected { border-color:var(--primary); color:var(--primary); background:#e8f0fe !important; }
-.btn-submit { width:100%; padding:13px; background:var(--primary); color:white; border:none; border-radius:8px; font-size:15px; font-weight:700; cursor:pointer; transition:background 0.2s; font-family:inherit; }
+.type-btn { padding:10px 4px; border:2px solid var(--border); border-radius:10px; background:#fff !important; font-size:13px; cursor:pointer; text-align:center; font-weight:600; transition:all 0.2s; color:var(--text-sub); font-family:inherit; }
+.type-btn.selected { border-color:var(--accent); color:var(--accent); background:#eef2ff !important; }
+.btn-submit { width:100%; padding:13px; background:var(--primary); color:white; border:none; border-radius:10px; font-size:15px; font-weight:700; cursor:pointer; transition:background 0.2s; font-family:inherit; }
 .btn-submit:hover { background:var(--primary-dark); }
 
 /* 내 신청 */
-.my-request { display:flex; align-items:center; gap:10px; padding:12px; border-radius:10px; border:1.5px solid var(--border); margin-bottom:8px; background:#ffffff !important; flex-wrap:wrap; }
-.request-dates { font-size:13px; font-weight:600; color:#202124 !important; }
+.my-request { display:flex; align-items:center; gap:10px; padding:12px; border-radius:12px; border:1.5px solid var(--border); margin-bottom:8px; background:#fff !important; flex-wrap:wrap; }
+.request-dates { font-size:13px; font-weight:600; color:#2d3748 !important; }
 .request-sub { font-size:12px; color:var(--text-sub); }
-.btn-cancel-req { background:#f5f5f5 !important; color:var(--danger); border:1px solid var(--border); border-radius:6px; padding:5px 10px; font-size:12px; cursor:pointer; font-weight:600; font-family:inherit; }
+.btn-cancel-req { background:#f7f8fa !important; color:var(--danger); border:1px solid var(--border); border-radius:8px; padding:5px 10px; font-size:12px; cursor:pointer; font-weight:600; font-family:inherit; }
 
 /* 승인 탭 */
-.pending-item { background:#ffffff !important; border-radius:10px; padding:14px; box-shadow:var(--shadow); margin-bottom:10px; }
+.pending-item { background:#fff !important; border-radius:12px; padding:14px; box-shadow:var(--shadow); margin-bottom:10px; }
 .pending-header { display:flex; align-items:center; gap:8px; margin-bottom:6px; flex-wrap:wrap; }
-.pending-name { font-size:15px; font-weight:700; color:#202124 !important; }
+.pending-name { font-size:15px; font-weight:700; color:#2d3748 !important; }
 .pending-detail { font-size:13px; color:var(--text-sub); margin-bottom:10px; line-height:1.6; }
 .pending-actions { display:flex; gap:8px; }
-.btn-lg-approve { flex:1; padding:10px; background:var(--success); color:white; border:none; border-radius:8px; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; }
-.btn-lg-reject { flex:1; padding:10px; background:var(--danger); color:white; border:none; border-radius:8px; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; }
+.btn-lg-approve { flex:1; padding:10px; background:var(--success); color:white; border:none; border-radius:10px; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; }
+.btn-lg-delete { flex:1; padding:10px; background:#a0aec0; color:white; border:none; border-radius:10px; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; }
 
 /* 가입 대기 */
-.signup-item { background:#ffffff !important; border-radius:10px; padding:14px; box-shadow:var(--shadow); margin-bottom:10px; }
+.signup-item { background:#fff !important; border-radius:12px; padding:14px; box-shadow:var(--shadow); margin-bottom:10px; }
 .signup-header { display:flex; align-items:center; gap:8px; margin-bottom:6px; }
 .signup-detail { font-size:13px; color:var(--text-sub); margin-bottom:10px; }
 
 /* 구성원 */
-.member-item { display:flex; align-items:center; justify-content:space-between; padding:12px; background:#ffffff !important; border-radius:10px; box-shadow:var(--shadow); margin-bottom:8px; flex-wrap:wrap; gap:8px; }
+.member-item { display:flex; align-items:center; justify-content:space-between; padding:12px; background:#fff !important; border-radius:12px; box-shadow:var(--shadow); margin-bottom:8px; flex-wrap:wrap; gap:8px; }
 .member-info { display:flex; align-items:center; gap:10px; }
 .member-avatar { width:40px; height:40px; border-radius:50%; background:var(--primary); color:white; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:16px; flex-shrink:0; }
-.member-name { font-size:15px; font-weight:600; color:#202124 !important; }
+.member-name { font-size:15px; font-weight:600; color:#2d3748 !important; }
 .member-id { font-size:12px; color:var(--text-sub); }
 .member-actions { display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
-.role-label.master { color:#d93025; font-size:12px; font-weight:700; }
-.role-label.manager { color:#ff9800; font-size:12px; font-weight:700; }
-.role-label.member { color:var(--primary); font-size:12px; font-weight:700; }
-.btn-small { padding:5px 12px; border-radius:6px; font-size:12px; cursor:pointer; border:1.5px solid var(--border); background:#ffffff !important; font-weight:600; font-family:inherit; color:#202124 !important; }
+.role-label.master { color:#e53e3e; font-size:12px; font-weight:700; }
+.role-label.manager { color:#dd6b20; font-size:12px; font-weight:700; }
+.role-label.member { color:var(--accent); font-size:12px; font-weight:700; }
+.btn-small { padding:5px 12px; border-radius:8px; font-size:12px; cursor:pointer; border:1.5px solid var(--border); background:#fff !important; font-weight:600; font-family:inherit; color:#2d3748 !important; }
 .group-toggle { display:flex; border-radius:8px; overflow:hidden; border:1.5px solid var(--border); }
-.group-btn { padding:5px 10px; font-size:12px; cursor:pointer; border:none; background:#ffffff !important; font-weight:600; font-family:inherit; transition:all 0.2s; color:#202124 !important; }
-.group-btn.active-counselor { background:#1a73e8 !important; color:white !important; }
-.group-btn.active-other { background:#9e9e9e !important; color:white !important; }
+.group-btn { padding:5px 10px; font-size:12px; cursor:pointer; border:none; background:#fff !important; font-weight:600; font-family:inherit; transition:all 0.2s; color:#2d3748 !important; }
+.group-btn.active-counselor { background:var(--accent) !important; color:white !important; }
+.group-btn.active-other { background:#a0aec0 !important; color:white !important; }
 
 /* 공휴일 관리 */
-.holiday-item { display:flex; align-items:center; justify-content:space-between; padding:10px 12px; border-radius:8px; background:#f8f9fa !important; margin-bottom:8px; }
+.holiday-item { display:flex; align-items:center; justify-content:space-between; padding:10px 12px; border-radius:10px; background:#f7f8fa !important; margin-bottom:8px; }
 .holiday-date { font-size:13px; font-weight:700; color:var(--holiday); }
-.holiday-name-text { font-size:13px; color:#202124 !important; }
-.btn-del-holiday { background:none; border:none; color:#9e9e9e; cursor:pointer; font-size:16px; }
+.holiday-name-text { font-size:13px; color:#2d3748 !important; }
+.btn-del-holiday { background:none; border:none; color:#a0aec0; cursor:pointer; font-size:16px; }
 .section-title { font-size:14px; font-weight:700; color:var(--text-sub); margin:16px 0 8px; }
 
 /* 모달 */
-.modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.5); display:none; align-items:center; justify-content:center; z-index:1000; padding:20px; }
+.modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.45); display:none; align-items:center; justify-content:center; z-index:1000; padding:20px; }
 .modal-overlay.show { display:flex; }
-.modal { background:#ffffff !important; border-radius:16px; padding:24px; width:100%; max-width:380px; box-shadow:0 16px 48px rgba(0,0,0,0.2); }
-.modal h3 { font-size:18px; font-weight:700; margin-bottom:12px; color:#202124 !important; }
+.modal { background:#fff !important; border-radius:20px; padding:24px; width:100%; max-width:360px; box-shadow:0 16px 48px rgba(0,0,0,0.18); }
+.modal h3 { font-size:18px; font-weight:700; margin-bottom:10px; color:#2d3748 !important; }
 .modal p { font-size:14px; color:var(--text-sub); margin-bottom:4px; }
 .modal-actions { display:flex; gap:10px; margin-top:20px; }
-.btn-cancel-modal { flex:1; padding:11px; background:#f8f9fa !important; border:1.5px solid var(--border); border-radius:8px; font-size:14px; cursor:pointer; font-weight:600; font-family:inherit; color:#202124 !important; }
-.btn-confirm { flex:1; padding:11px; background:var(--primary); color:white !important; border:none; border-radius:8px; font-size:14px; cursor:pointer; font-weight:700; font-family:inherit; }
+.btn-cancel-modal { flex:1; padding:11px; background:#f7f8fa !important; border:1.5px solid var(--border); border-radius:10px; font-size:14px; cursor:pointer; font-weight:600; font-family:inherit; color:#2d3748 !important; }
+.btn-confirm { flex:1; padding:11px; background:var(--primary); color:white !important; border:none; border-radius:10px; font-size:14px; cursor:pointer; font-weight:700; font-family:inherit; }
+.btn-confirm-danger { flex:1; padding:11px; background:var(--danger); color:white !important; border:none; border-radius:10px; font-size:14px; cursor:pointer; font-weight:700; font-family:inherit; }
 
 /* 빈 상태 */
 .empty-state { text-align:center; padding:30px 20px; color:var(--text-sub); }
@@ -222,7 +207,7 @@ body {
 .loading { text-align:center; padding:20px; color:var(--text-sub); font-size:14px; }
 
 /* 토스트 */
-.toast { position:fixed; bottom:80px; left:50%; transform:translateX(-50%); background:#323232; color:white; padding:12px 20px; border-radius:8px; font-size:14px; z-index:9999; opacity:0; transition:opacity 0.3s; white-space:nowrap; pointer-events:none; }
+.toast { position:fixed; bottom:30px; left:50%; transform:translateX(-50%); background:#2d3748; color:white; padding:12px 24px; border-radius:12px; font-size:14px; z-index:9999; opacity:0; transition:opacity 0.3s; white-space:nowrap; pointer-events:none; box-shadow:0 4px 16px rgba(0,0,0,0.2); }
 .toast.show { opacity:1; }
 
 @media(max-width:400px) { .form-row { grid-template-columns:1fr; } }
@@ -267,7 +252,7 @@ body {
     <div class="topbar-right">
       <span class="user-badge" id="userBadge"></span>
       <span class="role-badge" id="roleBadge"></span>
-      <button class="btn-icon" onclick="doLogout()">⏏</button>
+      <button class="btn-icon" onclick="openLogoutModal()" title="로그아웃">⏏</button>
     </div>
   </div>
   <div class="tabs">
@@ -285,17 +270,16 @@ body {
       <h2 id="calTitle"></h2>
       <button class="btn-nav" onclick="changeMonth(1)">▶</button>
     </div>
+    <!-- 범례: 공휴일, 교육 제거 -->
     <div class="legend">
-      <div class="legend-item"><div class="legend-dot legend-holiday"></div>공휴일</div>
       <div class="legend-item"><div class="legend-dot dot-연차"></div>연차</div>
       <div class="legend-item"><div class="legend-dot dot-휴가"></div>휴가</div>
       <div class="legend-item"><div class="legend-dot dot-병가"></div>병가</div>
       <div class="legend-item"><div class="legend-dot dot-출장"></div>출장</div>
       <div class="legend-item"><div class="legend-dot dot-회의"></div>회의</div>
-      <div class="legend-item"><div class="legend-dot dot-교육"></div>교육</div>
       <div class="legend-item"><div class="legend-dot dot-기타"></div>기타</div>
     </div>
-    <div class="cal-grid">
+    <div class="cal-grid" id="calGrid">
       <div class="cal-weekdays">
         <div class="cal-weekday">일</div><div class="cal-weekday">월</div>
         <div class="cal-weekday">화</div><div class="cal-weekday">수</div>
@@ -342,7 +326,8 @@ body {
 
   <!-- 승인 탭 -->
   <div id="tab-admin" class="content" style="display:none">
-    <div class="card">
+    <!-- 가입 승인: 마스터만 표시 -->
+    <div class="card" id="signupApprovalCard" style="display:none">
       <h3>🆕 가입 대기</h3>
       <div id="signupPendingList"><div class="loading">불러오는 중...</div></div>
     </div>
@@ -356,7 +341,7 @@ body {
     </div>
   </div>
 
-  <!-- 구성원 탭 -->
+  <!-- 구성원 탭 (마스터 전용) -->
   <div id="tab-members" class="content" style="display:none">
     <div class="card">
       <h3>👥 구성원 목록</h3>
@@ -364,7 +349,7 @@ body {
     </div>
   </div>
 
-  <!-- 설정 탭 -->
+  <!-- 설정 탭 (마스터 전용) -->
   <div id="tab-settings" class="content" style="display:none">
     <div class="card">
       <h3>🔴 커스텀 공휴일 추가</h3>
@@ -379,15 +364,27 @@ body {
   </div>
 </div>
 
+<!-- 모달: 로그아웃 확인 -->
+<div class="modal-overlay" id="logoutModal">
+  <div class="modal">
+    <h3>⏏ 로그아웃</h3>
+    <p>로그아웃 하시겠습니까?</p>
+    <div class="modal-actions">
+      <button class="btn-cancel-modal" onclick="closeModal('logoutModal')">취소</button>
+      <button class="btn-confirm" onclick="confirmLogout()">로그아웃</button>
+    </div>
+  </div>
+</div>
+
 <!-- 모달: 삭제 확인 -->
 <div class="modal-overlay" id="deleteModal">
   <div class="modal">
     <h3>🗑 삭제 확인</h3>
     <p>정말 삭제하시겠습니까?</p>
-    <p style="font-size:12px;color:#9e9e9e;margin-top:4px">삭제된 데이터는 복구할 수 없습니다.</p>
+    <p style="font-size:12px;color:#a0aec0;margin-top:4px">삭제된 데이터는 복구할 수 없습니다.</p>
     <div class="modal-actions">
       <button class="btn-cancel-modal" onclick="closeModal('deleteModal')">취소</button>
-      <button class="btn-confirm" style="background:#d93025" onclick="confirmDelete()">삭제</button>
+      <button class="btn-confirm-danger" onclick="confirmDelete()">삭제</button>
     </div>
   </div>
 </div>
@@ -396,9 +393,9 @@ body {
 <div class="modal-overlay" id="roleModal">
   <div class="modal">
     <h3>권한 변경</h3>
-    <div class="form-group">
+    <div class="form-group" style="margin-top:8px">
       <label id="roleModalName"></label>
-      <select id="roleSelect" style="width:100%;padding:11px 13px;border:1.5px solid #e0e0e0;border-radius:8px;font-size:14px;background:#fff;color:#202124">
+      <select id="roleSelect" style="width:100%;padding:11px 13px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:14px;background:#fff;color:#2d3748;margin-top:6px">
         <option value="member">팀원</option>
         <option value="manager">팀장</option>
         <option value="master">마스터</option>
@@ -418,7 +415,7 @@ body {
     <p>이 일정 신청을 취소하시겠습니까?</p>
     <div class="modal-actions">
       <button class="btn-cancel-modal" onclick="closeModal('cancelModal')">아니요</button>
-      <button class="btn-confirm" style="background:#d93025" onclick="confirmCancel()">취소하기</button>
+      <button class="btn-confirm-danger" onclick="confirmCancel()">취소하기</button>
     </div>
   </div>
 </div>
@@ -447,162 +444,189 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 const HOLIDAY_API_KEY = '0a2ed9ae5dca6dd3fc40382feaf59715433860477f665a2f17dcaea8c16f4802';
 
-let currentUser = null, currentUserData = null;
-let currentMonth = new Date();
-let allSchedules = [], allUsers = {}, customHolidays = [], signupRequests = [];
-let selectedType = '연차', selectedDate = null;
-let cancelTargetId = null, roleTargetId = null;
-let deleteTargetId = null, deleteTargetType = null; // 삭제 대상
-let unsubSchedules = null, unsubUsers = null, unsubHolidays = null, unsubSignups = null;
-let holidayCache = {};
+let currentUser=null, currentUserData=null;
+let currentMonth=new Date();
+let allSchedules=[], allUsers={}, customHolidays=[], signupRequests=[];
+let selectedType='연차', selectedDate=null;
+let cancelTargetId=null, roleTargetId=null, deleteTargetId=null, deleteTargetType=null;
+let unsubSchedules=null, unsubUsers=null, unsubHolidays=null, unsubSignups=null;
+let holidayCache={};
 
-// ===== 인증 탭 =====
+// ===== 스와이프 =====
+let touchStartX=0, touchStartY=0;
+document.addEventListener('DOMContentLoaded', () => {
+  const grid = document.getElementById('calGrid');
+  if (!grid) return;
+  grid.addEventListener('touchstart', e => {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+  }, {passive:true});
+  grid.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    const dy = e.changedTouches[0].clientY - touchStartY;
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
+      if (dx < 0) changeMonth(1);
+      else changeMonth(-1);
+    }
+  }, {passive:true});
+});
+
+// ===== 인증 =====
 window.switchAuthTab = function(tab) {
-  document.querySelectorAll('.auth-tab').forEach((b,i) => b.classList.toggle('active',(i===0&&tab==='login')||(i===1&&tab==='signup')));
-  document.getElementById('panel-login').classList.toggle('active', tab==='login');
-  document.getElementById('panel-signup').classList.toggle('active', tab==='signup');
-  document.getElementById('loginError').textContent='';
-  document.getElementById('signupError').textContent='';
-  document.getElementById('signupSuccess').textContent='';
+  document.querySelectorAll('.auth-tab').forEach((b,i)=>b.classList.toggle('active',(i===0&&tab==='login')||(i===1&&tab==='signup')));
+  document.getElementById('panel-login').classList.toggle('active',tab==='login');
+  document.getElementById('panel-signup').classList.toggle('active',tab==='signup');
+  ['loginError','signupError','signupSuccess'].forEach(id=>document.getElementById(id).textContent='');
 };
 
 function idToEmail(id) { return `${id.toLowerCase()}@teamschedule.app`; }
 
 window.doLogin = async function() {
-  const id = document.getElementById('loginId').value.trim();
-  const pw = document.getElementById('loginPw').value;
-  document.getElementById('loginError').textContent = '';
-  if (!id||!pw) { document.getElementById('loginError').textContent='아이디와 비밀번호를 입력하세요.'; return; }
-  try { await signInWithEmailAndPassword(auth, idToEmail(id), pw); }
-  catch(e) { document.getElementById('loginError').textContent='아이디 또는 비밀번호가 올바르지 않습니다.'; }
+  const id=document.getElementById('loginId').value.trim();
+  const pw=document.getElementById('loginPw').value;
+  document.getElementById('loginError').textContent='';
+  if(!id||!pw){document.getElementById('loginError').textContent='아이디와 비밀번호를 입력하세요.';return;}
+  try{await signInWithEmailAndPassword(auth,idToEmail(id),pw);}
+  catch(e){document.getElementById('loginError').textContent='아이디 또는 비밀번호가 올바르지 않습니다.';}
 };
 
 window.doSignup = async function() {
-  const id = document.getElementById('signupId').value.trim().toLowerCase();
-  const pw = document.getElementById('signupPw').value;
-  const nick = document.getElementById('signupNick').value.trim();
-  const errEl = document.getElementById('signupError');
-  const sucEl = document.getElementById('signupSuccess');
+  const id=document.getElementById('signupId').value.trim().toLowerCase();
+  const pw=document.getElementById('signupPw').value;
+  const nick=document.getElementById('signupNick').value.trim();
+  const errEl=document.getElementById('signupError');
+  const sucEl=document.getElementById('signupSuccess');
   errEl.textContent=''; sucEl.textContent='';
-  if (!id||!pw||!nick) { errEl.textContent='모든 항목을 입력하세요.'; return; }
-  if (!/^[a-z0-9]{4,20}$/.test(id)) { errEl.textContent='아이디는 영문 소문자+숫자 4~20자로 입력하세요.'; return; }
-  if (pw.length<6) { errEl.textContent='비밀번호는 6자 이상이어야 합니다.'; return; }
-  try {
-    const existing = await getDoc(doc(db,'signupRequests',id));
-    if (existing.exists()) { errEl.textContent='이미 사용 중이거나 신청된 아이디입니다.'; return; }
-    await setDoc(doc(db,'signupRequests',id), { userId:id, nickname:nick, password:pw, status:'pending', createdAt:serverTimestamp() });
+  if(!id||!pw||!nick){errEl.textContent='모든 항목을 입력하세요.';return;}
+  if(!/^[a-z0-9]{4,20}$/.test(id)){errEl.textContent='아이디는 영문 소문자+숫자 4~20자로 입력하세요.';return;}
+  if(pw.length<6){errEl.textContent='비밀번호는 6자 이상이어야 합니다.';return;}
+  try{
+    const existing=await getDoc(doc(db,'signupRequests',id));
+    if(existing.exists()){errEl.textContent='이미 사용 중이거나 신청된 아이디입니다.';return;}
+    await setDoc(doc(db,'signupRequests',id),{userId:id,nickname:nick,password:pw,status:'pending',createdAt:serverTimestamp()});
     sucEl.textContent='가입 신청이 완료되었습니다! 관리자 승인 후 로그인 가능합니다.';
-    document.getElementById('signupId').value='';
-    document.getElementById('signupPw').value='';
-    document.getElementById('signupNick').value='';
-  } catch(e) { errEl.textContent='신청 중 오류가 발생했습니다: '+e.message; }
+    ['signupId','signupPw','signupNick'].forEach(id=>document.getElementById(id).value='');
+  }catch(e){errEl.textContent='신청 중 오류가 발생했습니다: '+e.message;}
 };
 
-window.doLogout = async function() {
+// 로그아웃 확인 모달
+window.openLogoutModal = function() { document.getElementById('logoutModal').classList.add('show'); };
+window.confirmLogout = async function() {
+  closeModal('logoutModal');
   [unsubSchedules,unsubUsers,unsubHolidays,unsubSignups].forEach(u=>u&&u());
   await signOut(auth);
 };
 
-document.getElementById('loginPw').addEventListener('keyup', e => { if(e.key==='Enter') doLogin(); });
-document.getElementById('loginId').addEventListener('keyup', e => { if(e.key==='Enter') document.getElementById('loginPw').focus(); });
+document.getElementById('loginPw').addEventListener('keyup',e=>{if(e.key==='Enter')doLogin();});
+document.getElementById('loginId').addEventListener('keyup',e=>{if(e.key==='Enter')document.getElementById('loginPw').focus();});
 
-onAuthStateChanged(auth, async (user) => {
-  if (user) {
-    currentUser = user;
-    const uDoc = await getDoc(doc(db,'users',user.uid));
-    if (uDoc.exists()) {
-      currentUserData = uDoc.data();
-    } else {
-      currentUserData = { name:user.email.split('@')[0], nickname:user.email.split('@')[0], role:'master', userId:user.email.split('@')[0] };
-      await setDoc(doc(db,'users',user.uid), { ...currentUserData, createdAt:serverTimestamp() });
+onAuthStateChanged(auth, async(user)=>{
+  if(user){
+    currentUser=user;
+    const uDoc=await getDoc(doc(db,'users',user.uid));
+    if(uDoc.exists()){currentUserData=uDoc.data();}
+    else{
+      currentUserData={name:user.email.split('@')[0],nickname:user.email.split('@')[0],role:'master',userId:user.email.split('@')[0]};
+      await setDoc(doc(db,'users',user.uid),{...currentUserData,createdAt:serverTimestamp()});
     }
     initApp();
-  } else {
-    currentUser=null; currentUserData=null;
+  }else{
+    currentUser=null;currentUserData=null;
     document.getElementById('loginPage').style.display='flex';
     document.getElementById('app').style.display='none';
   }
 });
 
-function initApp() {
+function initApp(){
   document.getElementById('loginPage').style.display='none';
   document.getElementById('app').style.display='flex';
   document.getElementById('app').style.flexDirection='column';
-  const nick = currentUserData.nickname||currentUserData.name||currentUserData.userId||'';
-  document.getElementById('userBadge').textContent=nick;
+  document.getElementById('userBadge').textContent=currentUserData.nickname||currentUserData.name||'';
   const roleLabels={master:'마스터',manager:'팀장',member:'팀원'};
   const rb=document.getElementById('roleBadge');
   rb.textContent=roleLabels[currentUserData.role]||'팀원';
   rb.className='role-badge '+(currentUserData.role||'member');
   const role=currentUserData.role;
-  if (role==='master'||role==='manager') {
-    document.getElementById('tabAdmin').style.display='';
-    document.getElementById('tabMembers').style.display='';
-  }
-  if (role==='master') document.getElementById('tabSettings').style.display='';
   const today=new Date().toISOString().split('T')[0];
   document.getElementById('startDate').value=today;
   document.getElementById('endDate').value=today;
+
+  // 권한별 탭/카드 표시
+  if(role==='master'){
+    document.getElementById('tabAdmin').style.display='';
+    document.getElementById('tabMembers').style.display='';
+    document.getElementById('tabSettings').style.display='';
+    document.getElementById('signupApprovalCard').style.display='';
+  } else if(role==='manager'){
+    // 팀장: 승인 탭만 (가입승인 없음, 구성원/설정 없음)
+    document.getElementById('tabAdmin').style.display='';
+  }
   subscribeAll();
 }
 
-function subscribeAll() {
-  unsubSchedules = onSnapshot(query(collection(db,'schedules'),orderBy('startDate')), snap => {
+function subscribeAll(){
+  unsubSchedules=onSnapshot(query(collection(db,'schedules'),orderBy('startDate')),snap=>{
     allSchedules=snap.docs.map(d=>({id:d.id,...d.data()}));
     renderCalendar(); renderMyRequests();
-    if (currentUserData.role!=='member') { renderPendingList(); renderAllRequests(); updatePendingBadge(); }
-    if (selectedDate) showDayDetail(selectedDate);
+    if(currentUserData.role!=='member'){renderPendingList();renderAllRequests();updatePendingBadge();}
+    if(selectedDate) showDayDetail(selectedDate);
   });
-  unsubUsers = onSnapshot(query(collection(db,'users'),orderBy('nickname')), snap => {
+  unsubUsers=onSnapshot(query(collection(db,'users'),orderBy('nickname')),snap=>{
     allUsers={};
-    snap.docs.forEach(d=>{ allUsers[d.id]={id:d.id,...d.data()}; });
+    snap.docs.forEach(d=>{allUsers[d.id]={id:d.id,...d.data()};});
     renderMemberList();
-    if (selectedDate) showDayDetail(selectedDate);
+    if(selectedDate) showDayDetail(selectedDate);
   });
-  unsubHolidays = onSnapshot(query(collection(db,'holidays'),orderBy('date')), snap => {
+  unsubHolidays=onSnapshot(query(collection(db,'holidays'),orderBy('date')),snap=>{
     customHolidays=snap.docs.map(d=>({id:d.id,...d.data()}));
     renderCustomHolidayList(); renderCalendar();
-    if (selectedDate) showDayDetail(selectedDate);
+    if(selectedDate) showDayDetail(selectedDate);
   });
-  if (currentUserData.role==='master'||currentUserData.role==='manager') {
-    unsubSignups = onSnapshot(query(collection(db,'signupRequests'),where('status','==','pending')), snap => {
+  // 가입 승인은 마스터만
+  if(currentUserData.role==='master'){
+    unsubSignups=onSnapshot(query(collection(db,'signupRequests'),where('status','==','pending')),snap=>{
       signupRequests=snap.docs.map(d=>({id:d.id,...d.data()}));
       renderSignupPending(); updatePendingBadge();
     });
   }
 }
 
-// ===== 공휴일 API =====
-async function fetchHolidays(year, month) {
+// ===== 공휴일 =====
+async function fetchHolidays(year,month){
   const key=`${year}${String(month).padStart(2,'0')}`;
-  if (holidayCache[key]) return holidayCache[key];
-  try {
+  if(holidayCache[key]) return holidayCache[key];
+  try{
     const url=`https://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getRestDeInfo?serviceKey=${HOLIDAY_API_KEY}&solYear=${year}&solMonth=${String(month).padStart(2,'0')}&_type=json&numOfRows=50`;
     const res=await fetch(url);
     const json=await res.json();
     const items=json?.response?.body?.items?.item;
     const result={};
-    if (items) { const arr=Array.isArray(items)?items:[items]; arr.forEach(h=>{result[String(h.locdate)]=h.dateName;}); }
+    if(items){const arr=Array.isArray(items)?items:[items];arr.forEach(h=>{result[String(h.locdate)]=h.dateName;});}
     holidayCache[key]=result;
     return result;
-  } catch(e) { console.warn('공휴일 API 오류:',e); return {}; }
+  }catch(e){console.warn('공휴일 API 오류:',e);return{};}
 }
 
-function getCustomHolidayMap() {
+function getCustomHolidayMap(){
   const map={};
-  customHolidays.forEach(h=>{ map[h.date.replace(/-/g,'')]=h.name; });
+  customHolidays.forEach(h=>{map[h.date.replace(/-/g,'')]=h.name;});
   return map;
 }
 
+function isWeekend(dateStr){
+  const day=new Date(dateStr).getDay();
+  return day===0||day===6;
+}
+
 // ===== 달력 =====
-window.changeMonth = function(delta) {
+window.changeMonth=function(delta){
   currentMonth=new Date(currentMonth.getFullYear(),currentMonth.getMonth()+delta,1);
   renderCalendar();
   selectedDate=null;
   document.getElementById('dayDetail').classList.remove('show');
 };
 
-async function renderCalendar() {
+async function renderCalendar(){
   const year=currentMonth.getFullYear();
   const month=currentMonth.getMonth()+1;
   document.getElementById('calTitle').textContent=`${year}년 ${month}월`;
@@ -612,9 +636,9 @@ async function renderCalendar() {
   const firstDay=new Date(year,month-1,1).getDay();
   const lastDate=new Date(year,month,0).getDate();
   const today=new Date().toISOString().split('T')[0];
-  const dayMap={}, absentMap={};
+  const dayMap={},absentMap={};
   allSchedules.filter(s=>s.status==='approved').forEach(s=>{
-    let d=new Date(s.startDate); const end=new Date(s.endDate);
+    let d=new Date(s.startDate);const end=new Date(s.endDate);
     const isAbsent=['연차','휴가','병가'].includes(s.type);
     while(d<=end){
       const key=d.toISOString().split('T')[0];
@@ -641,17 +665,18 @@ async function renderCalendar() {
     const isSelected=dateStr===selectedDate;
     const holidayName=allHolidays[dateKey];
     const isHoliday=!!holidayName;
+    const weekend=isWeekend(dateStr);
     let cls='cal-day';
     if(isToday) cls+=' today';
     if(isSelected) cls+=' selected';
     if(isHoliday) cls+=' holiday-day';
     const dots=events.slice(0,4).map(e=>`<div class="day-dot dot-${e.type}"></div>`).join('');
+    // 근무 인원: 평일 + 공휴일 아닌 날에만 표시
     let attendHtml='';
-    if(counselorCount>0&&(events.length>0||absent>0)){
+    if(counselorCount>0 && !weekend && !isHoliday){
       const ac=present<Math.ceil(counselorCount*0.5)?'attendance-low':'attendance-ok';
       attendHtml=`<span class="attendance-count ${ac}">${present}명</span>`;
     }
-    // 공휴일 이름 말줄임표 (말줄임표는 CSS로 처리, 여기선 그냥 출력)
     const hNameHtml=holidayName?`<div class="day-holiday-name" title="${holidayName}">${holidayName}</div>`:'';
     html+=`<div class="${cls}" onclick="showDayDetail('${dateStr}')">
       <div class="day-num">${d}</div>
@@ -665,7 +690,7 @@ async function renderCalendar() {
   document.getElementById('calDays').innerHTML=html;
 }
 
-window.showDayDetail = async function(dateStr) {
+window.showDayDetail=async function(dateStr){
   selectedDate=dateStr;
   await renderCalendar();
   const detail=document.getElementById('dayDetail');
@@ -684,25 +709,25 @@ window.showDayDetail = async function(dateStr) {
   const counselorCount=Object.values(allUsers).filter(u=>u.group==='counselor').length;
   const absent=daySchedules.filter(s=>s.status==='approved'&&['연차','휴가','병가'].includes(s.type)&&allUsers[s.userId]?.group==='counselor').length;
   const present=counselorCount-absent;
-
-  // ★ 근무 인원 표시 단순화
-  document.getElementById('attendanceInfo').textContent=counselorCount>0?`근무 인원 : ${present}명`:'';
-
+  // 근무 인원: 단순화
+  const weekend=isWeekend(dateStr);
+  document.getElementById('attendanceInfo').textContent=
+    (counselorCount>0&&!weekend&&!holidayName)?`근무 인원 : ${present}명`:'';
   if(daySchedules.length===0){
-    document.getElementById('scheduleList').innerHTML='<div style="color:#9e9e9e;font-size:14px;padding:10px 0">이날 일정이 없습니다.</div>';
+    document.getElementById('scheduleList').innerHTML='<div style="color:#a0aec0;font-size:14px;padding:10px 0">이날 일정이 없습니다.</div>';
     detail.scrollIntoView({behavior:'smooth',block:'nearest'});
     return;
   }
   const role=currentUserData.role;
-  const statusMap={pending:'대기중',approved:'승인',rejected:'반려'};
-  const statusCls={pending:'status-pending',approved:'status-approved',rejected:'status-rejected'};
+  // 상태: pending→대기중, approved→확정 / 반려 없음
+  const statusMap={pending:'대기중',approved:'확정'};
+  const statusCls={pending:'status-pending',approved:'status-approved'};
   let html=daySchedules.map(s=>{
     const user=allUsers[s.userId]||{nickname:s.userName||'?'};
     const name=user.nickname||user.name||'?';
     let actions='';
     if((role==='master'||role==='manager')&&s.status==='pending'){
-      actions+=`<button class="btn-approve" onclick="approveSchedule('${s.id}')">승인</button>
-                <button class="btn-reject" onclick="rejectSchedule('${s.id}')">반려</button>`;
+      actions+=`<button class="btn-approve" onclick="approveSchedule('${s.id}')">확정</button>`;
     }
     if(role==='master'||role==='manager'||s.userId===currentUser.uid){
       actions+=` <button class="btn-delete" onclick="openDeleteModal('${s.id}','schedule')">삭제</button>`;
@@ -714,7 +739,7 @@ window.showDayDetail = async function(dateStr) {
         ${s.note?`<div class="schedule-note">${s.note}</div>`:''}
       </div>
       <div class="schedule-actions">
-        <span class="${statusCls[s.status]}">${statusMap[s.status]}</span>
+        <span class="${statusCls[s.status]||'status-pending'}">${statusMap[s.status]||'대기중'}</span>
         ${actions}
       </div>
     </div>`;
@@ -724,31 +749,31 @@ window.showDayDetail = async function(dateStr) {
 };
 
 // ===== 일정 신청 =====
-window.selectType = function(type) {
+window.selectType=function(type){
   selectedType=type;
   document.querySelectorAll('.type-btn').forEach(b=>b.classList.remove('selected'));
   document.getElementById('type-'+type).classList.add('selected');
 };
 
-window.submitRequest = async function() {
+window.submitRequest=async function(){
   const start=document.getElementById('startDate').value;
   const end=document.getElementById('endDate').value;
   const note=document.getElementById('requestNote').value.trim();
   if(!start||!end){showToast('날짜를 선택하세요.');return;}
   if(start>end){showToast('종료일이 시작일보다 빠릅니다.');return;}
-  try {
+  try{
     const nick=currentUserData.nickname||currentUserData.name||'';
     await addDoc(collection(db,'schedules'),{userId:currentUser.uid,userName:nick,type:selectedType,startDate:start,endDate:end,note,status:'pending',createdAt:serverTimestamp()});
     showToast('신청이 완료되었습니다!');
     document.getElementById('requestNote').value='';
-  } catch(e){showToast('신청 중 오류가 발생했습니다.');console.error(e);}
+  }catch(e){showToast('신청 중 오류가 발생했습니다.');console.error(e);}
 };
 
-function renderMyRequests() {
+function renderMyRequests(){
   const mine=allSchedules.filter(s=>s.userId===currentUser.uid).sort((a,b)=>b.startDate.localeCompare(a.startDate));
   if(mine.length===0){document.getElementById('myRequests').innerHTML='<div class="empty-state"><div class="icon">📋</div><p>신청 내역이 없습니다.</p></div>';return;}
-  const statusMap={pending:'⏳ 대기중',approved:'✅ 승인',rejected:'❌ 반려'};
-  const statusCls={pending:'status-pending',approved:'status-approved',rejected:'status-rejected'};
+  const statusMap={pending:'⏳ 대기중',approved:'✅ 확정'};
+  const statusCls={pending:'status-pending',approved:'status-approved'};
   document.getElementById('myRequests').innerHTML=mine.map(s=>`
     <div class="my-request">
       <span class="schedule-type-badge type-${s.type}">${s.type}</span>
@@ -756,30 +781,30 @@ function renderMyRequests() {
         <div class="request-dates">${s.startDate} ~ ${s.endDate}</div>
         ${s.note?`<div class="request-sub">${s.note}</div>`:''}
       </div>
-      <span class="${statusCls[s.status]}">${statusMap[s.status]}</span>
+      <span class="${statusCls[s.status]||'status-pending'}">${statusMap[s.status]||'⏳ 대기중'}</span>
       ${s.status==='pending'?`<button class="btn-cancel-req" onclick="openCancelModal('${s.id}')">취소</button>`:''}
     </div>`).join('');
 }
 
-// ===== 가입 승인 =====
-function renderSignupPending() {
+// ===== 가입 승인 (마스터만) =====
+function renderSignupPending(){
   if(signupRequests.length===0){document.getElementById('signupPendingList').innerHTML='<div class="empty-state"><div class="icon">✅</div><p>대기 중인 가입 신청이 없습니다.</p></div>';return;}
   document.getElementById('signupPendingList').innerHTML=signupRequests.map(r=>`
     <div class="signup-item">
       <div class="signup-header">
         <span style="font-size:15px;font-weight:700">${r.nickname}</span>
-        <span style="font-size:13px;color:#5f6368">(@${r.userId})</span>
+        <span style="font-size:13px;color:#718096">(@${r.userId})</span>
       </div>
       <div class="signup-detail">신청일: ${r.createdAt?new Date(r.createdAt.toDate()).toLocaleDateString('ko-KR'):'-'}</div>
       <div class="pending-actions">
         <button class="btn-lg-approve" onclick="approveSignup('${r.id}','${r.userId}','${r.nickname}','${r.password}')">✅ 승인</button>
-        <button class="btn-lg-reject" onclick="rejectSignup('${r.id}')">❌ 거절</button>
+        <button class="btn-lg-delete" onclick="rejectSignup('${r.id}')">❌ 거절</button>
       </div>
     </div>`).join('');
 }
 
-window.approveSignup = async function(docId,userId,nickname,password) {
-  try {
+window.approveSignup=async function(docId,userId,nickname,password){
+  try{
     const secondApp=initializeApp(firebaseConfig,'secondary_'+Date.now());
     const secondAuth=getAuth(secondApp);
     const cred=await createUserWithEmailAndPassword(secondAuth,idToEmail(userId),password);
@@ -787,20 +812,20 @@ window.approveSignup = async function(docId,userId,nickname,password) {
     await deleteDoc(doc(db,'signupRequests',docId));
     await secondAuth.signOut();
     showToast(`${nickname} 가입이 승인되었습니다.`);
-  } catch(e){
+  }catch(e){
     if(e.code==='auth/email-already-in-use') showToast('이미 등록된 아이디입니다.');
     else showToast('승인 중 오류: '+e.message);
     console.error(e);
   }
 };
 
-window.rejectSignup = async function(docId) {
+window.rejectSignup=async function(docId){
   try{await deleteDoc(doc(db,'signupRequests',docId));showToast('가입 신청이 거절되었습니다.');}
   catch(e){showToast('오류가 발생했습니다.');}
 };
 
-// ===== 일정 승인/반려 =====
-function renderPendingList() {
+// ===== 일정 승인 (확정) / 반려 없음 =====
+function renderPendingList(){
   const pending=allSchedules.filter(s=>s.status==='pending').sort((a,b)=>a.startDate.localeCompare(b.startDate));
   if(pending.length===0){document.getElementById('pendingList').innerHTML='<div class="empty-state"><div class="icon">✅</div><p>대기 중인 일정이 없습니다.</p></div>';return;}
   document.getElementById('pendingList').innerHTML=pending.map(s=>{
@@ -812,17 +837,17 @@ function renderPendingList() {
       </div>
       <div class="pending-detail">📅 ${s.startDate} ~ ${s.endDate}${s.note?`<br>💬 ${s.note}`:''}</div>
       <div class="pending-actions">
-        <button class="btn-lg-approve" onclick="approveSchedule('${s.id}')">✅ 승인</button>
-        <button class="btn-lg-reject" onclick="rejectSchedule('${s.id}')">❌ 반려</button>
+        <button class="btn-lg-approve" onclick="approveSchedule('${s.id}')">✅ 확정</button>
+        <button class="btn-lg-delete" onclick="openDeleteModal('${s.id}','schedule')">🗑 삭제</button>
       </div>
     </div>`;
   }).join('');
 }
 
-function renderAllRequests() {
+function renderAllRequests(){
   const all=[...allSchedules].sort((a,b)=>b.startDate.localeCompare(a.startDate));
   if(all.length===0){document.getElementById('allRequests').innerHTML='<div class="empty-state"><div class="icon">📋</div><p>신청 내역이 없습니다.</p></div>';return;}
-  const statusMap={pending:'⏳',approved:'✅',rejected:'❌'};
+  const statusMap={pending:'⏳ 대기중',approved:'✅ 확정'};
   document.getElementById('allRequests').innerHTML=all.map(s=>{
     const user=allUsers[s.userId]||{nickname:s.userName||'?'};
     return `<div class="my-request">
@@ -832,56 +857,49 @@ function renderAllRequests() {
         ${s.note?`<div class="request-sub">${s.note}</div>`:''}
       </div>
       <div style="display:flex;gap:4px;align-items:center">
-        <span>${statusMap[s.status]}</span>
+        <span style="font-size:12px">${statusMap[s.status]||'⏳'}</span>
         <button class="btn-delete" onclick="openDeleteModal('${s.id}','schedule')">삭제</button>
       </div>
     </div>`;
   }).join('');
 }
 
-function updatePendingBadge() {
+function updatePendingBadge(){
   const total=allSchedules.filter(s=>s.status==='pending').length+signupRequests.length;
   const badge=document.getElementById('pendingBadge');
   if(total>0){badge.textContent=total;badge.style.display='';}
   else{badge.style.display='none';}
 }
 
-window.approveSchedule = async function(id) {
-  try{await updateDoc(doc(db,'schedules',id),{status:'approved'});showToast('승인되었습니다.');}
-  catch(e){showToast('오류가 발생했습니다.');}
-};
-window.rejectSchedule = async function(id) {
-  try{await updateDoc(doc(db,'schedules',id),{status:'rejected'});showToast('반려되었습니다.');}
+window.approveSchedule=async function(id){
+  try{await updateDoc(doc(db,'schedules',id),{status:'approved'});showToast('확정되었습니다.');}
   catch(e){showToast('오류가 발생했습니다.');}
 };
 
 // ===== 삭제 확인 모달 =====
-window.openDeleteModal = function(id, type) {
-  deleteTargetId = id;
-  deleteTargetType = type;
+window.openDeleteModal=function(id,type){
+  deleteTargetId=id; deleteTargetType=type;
   document.getElementById('deleteModal').classList.add('show');
 };
-
-window.confirmDelete = async function() {
+window.confirmDelete=async function(){
   closeModal('deleteModal');
-  if (!deleteTargetId) return;
-  try {
-    if (deleteTargetType === 'schedule') {
+  if(!deleteTargetId) return;
+  try{
+    if(deleteTargetType==='schedule'){
       await deleteDoc(doc(db,'schedules',deleteTargetId));
       showToast('삭제되었습니다.');
-      if (selectedDate) showDayDetail(selectedDate);
-    } else if (deleteTargetType === 'holiday') {
+      if(selectedDate) showDayDetail(selectedDate);
+    } else if(deleteTargetType==='holiday'){
       await deleteDoc(doc(db,'holidays',deleteTargetId));
       showToast('삭제되었습니다.');
     }
-  } catch(e) { showToast('오류가 발생했습니다.'); }
-  deleteTargetId = null;
-  deleteTargetType = null;
+  }catch(e){showToast('오류가 발생했습니다.');}
+  deleteTargetId=null; deleteTargetType=null;
 };
 
-// ===== 신청 취소 모달 =====
-window.openCancelModal = function(id) { cancelTargetId=id; document.getElementById('cancelModal').classList.add('show'); };
-window.confirmCancel = async function() {
+// ===== 신청 취소 =====
+window.openCancelModal=function(id){cancelTargetId=id;document.getElementById('cancelModal').classList.add('show');};
+window.confirmCancel=async function(){
   closeModal('cancelModal');
   if(cancelTargetId){
     try{await deleteDoc(doc(db,'schedules',cancelTargetId));showToast('취소되었습니다.');}
@@ -890,21 +908,19 @@ window.confirmCancel = async function() {
   }
 };
 
-// ===== 구성원 =====
-function renderMemberList() {
+// ===== 구성원 (마스터 전용) =====
+function renderMemberList(){
   const members=Object.values(allUsers).sort((a,b)=>(a.nickname||'').localeCompare(b.nickname||''));
   if(members.length===0){document.getElementById('memberList').innerHTML='<div class="empty-state"><p>구성원이 없습니다.</p></div>';return;}
   const roleLabel={master:'마스터',manager:'팀장',member:'팀원'};
-  const isMaster=currentUserData.role==='master';
   document.getElementById('memberList').innerHTML=members.map(u=>{
     const name=u.nickname||u.name||u.userId||'?';
     const group=u.group||'counselor';
-    const groupHtml=isMaster?`
+    const groupHtml=`
       <div class="group-toggle">
         <button class="group-btn ${group==='counselor'?'active-counselor':''}" onclick="setGroup('${u.id}','counselor')">상담사</button>
         <button class="group-btn ${group==='other'?'active-other':''}" onclick="setGroup('${u.id}','other')">비상담사</button>
-      </div>`:
-      `<span style="font-size:12px;color:#5f6368">${group==='counselor'?'상담사':'비상담사'}</span>`;
+      </div>`;
     return `<div class="member-item">
       <div class="member-info">
         <div class="member-avatar">${name[0]}</div>
@@ -916,25 +932,25 @@ function renderMemberList() {
       <div class="member-actions">
         ${groupHtml}
         <span class="role-label ${u.role||'member'}">${roleLabel[u.role]||'팀원'}</span>
-        ${isMaster&&u.id!==currentUser.uid?`<button class="btn-small" onclick="openRoleModal('${u.id}','${u.role||'member'}','${name}')">권한변경</button>`:''}
+        ${u.id!==currentUser.uid?`<button class="btn-small" onclick="openRoleModal('${u.id}','${u.role||'member'}','${name}')">권한변경</button>`:''}
       </div>
     </div>`;
   }).join('');
 }
 
-window.setGroup = async function(uid,group) {
+window.setGroup=async function(uid,group){
   try{await updateDoc(doc(db,'users',uid),{group});showToast('그룹이 변경되었습니다.');}
   catch(e){showToast('오류가 발생했습니다.');}
 };
 
 // ===== 권한 변경 =====
-window.openRoleModal = function(uid,role,name) {
+window.openRoleModal=function(uid,role,name){
   roleTargetId=uid;
   document.getElementById('roleModalName').textContent=`${name}의 권한`;
   document.getElementById('roleSelect').value=role;
   document.getElementById('roleModal').classList.add('show');
 };
-window.confirmRoleChange = async function() {
+window.confirmRoleChange=async function(){
   const newRole=document.getElementById('roleSelect').value;
   closeModal('roleModal');
   try{await updateDoc(doc(db,'users',roleTargetId),{role:newRole});showToast('권한이 변경되었습니다.');}
@@ -943,7 +959,7 @@ window.confirmRoleChange = async function() {
 };
 
 // ===== 커스텀 공휴일 =====
-window.addCustomHoliday = async function() {
+window.addCustomHoliday=async function(){
   const date=document.getElementById('holidayDate').value;
   const name=document.getElementById('holidayName').value.trim();
   if(!date||!name){showToast('날짜와 사유를 입력하세요.');return;}
@@ -955,8 +971,8 @@ window.addCustomHoliday = async function() {
   }catch(e){showToast('오류가 발생했습니다.');}
 };
 
-function renderCustomHolidayList() {
-  if(customHolidays.length===0){document.getElementById('customHolidayList').innerHTML='<div style="color:#9e9e9e;font-size:14px;padding:10px 0">등록된 커스텀 공휴일이 없습니다.</div>';return;}
+function renderCustomHolidayList(){
+  if(customHolidays.length===0){document.getElementById('customHolidayList').innerHTML='<div style="color:#a0aec0;font-size:14px;padding:10px 0">등록된 커스텀 공휴일이 없습니다.</div>';return;}
   document.getElementById('customHolidayList').innerHTML=customHolidays.map(h=>`
     <div class="holiday-item">
       <div>
@@ -968,7 +984,7 @@ function renderCustomHolidayList() {
 }
 
 // ===== 탭 전환 =====
-window.showTab = function(tab,el) {
+window.showTab=function(tab,el){
   ['calendar','request','admin','members','settings'].forEach(t=>{
     document.getElementById('tab-'+t).style.display=t===tab?'':'none';
   });
@@ -977,9 +993,9 @@ window.showTab = function(tab,el) {
 };
 
 // ===== 유틸 =====
-window.closeModal = function(id) { document.getElementById(id).classList.remove('show'); };
+window.closeModal=function(id){document.getElementById(id).classList.remove('show');};
 
-function showToast(msg) {
+function showToast(msg){
   const t=document.getElementById('toast');
   t.textContent=msg; t.classList.add('show');
   setTimeout(()=>t.classList.remove('show'),2500);
@@ -988,6 +1004,21 @@ function showToast(msg) {
 document.querySelectorAll('.modal-overlay').forEach(m=>{
   m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('show');});
 });
+
+// 스와이프 초기화
+const calGrid=document.getElementById('calGrid');
+calGrid.addEventListener('touchstart',e=>{
+  touchStartX=e.touches[0].clientX;
+  touchStartY=e.touches[0].clientY;
+},{passive:true});
+calGrid.addEventListener('touchend',e=>{
+  const dx=e.changedTouches[0].clientX-touchStartX;
+  const dy=e.changedTouches[0].clientY-touchStartY;
+  if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>50){
+    if(dx<0) changeMonth(1);
+    else changeMonth(-1);
+  }
+},{passive:true});
 </script>
 </body>
 </html>
