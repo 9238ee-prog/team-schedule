@@ -17,21 +17,17 @@
   --bg: #f7f8fa; --text: #2d3748; --text-sub: #718096; --border: #e2e8f0;
   --danger: #e53e3e; --success: #38a169; --holiday: #e53e3e;
   --shadow: 0 2px 8px rgba(0,0,0,0.10);
-  --sun-bg: #fff5f5;
-  --sat-bg: #eff6ff;
-  --hol-bg: #fff0f0;
+  --sun-bg: #fff5f5; --sat-bg: #eff6ff; --hol-bg: #fff0f0;
 }
 * { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
 body { font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","맑은 고딕",sans-serif; background:#f7f8fa !important; color:#2d3748 !important; forced-color-adjust:none; }
 
-.type-연차 { background:#e53e3e } .type-반차 { background:#f6ad55 }
-.type-휴가 { background:#38a169 } .type-공가 { background:#805ad5 }
-.type-출장 { background:#dd6b20 } .type-기타 { background:#718096 }
-
-/* 일정 텍스트 색상 */
-.ev-연차 { color:#e53e3e } .ev-반차 { color:#d97706 }
-.ev-휴가 { color:#38a169 } .ev-공가 { color:#805ad5 }
-.ev-출장 { color:#dd6b20 } .ev-기타 { color:#718096 }
+.type-연차{background:#e53e3e} .type-반차{background:#f6ad55}
+.type-휴가{background:#38a169} .type-공가{background:#805ad5}
+.type-출장{background:#dd6b20} .type-기타{background:#718096}
+.ev-연차{color:#e53e3e} .ev-반차{color:#d97706}
+.ev-휴가{color:#38a169} .ev-공가{color:#805ad5}
+.ev-출장{color:#dd6b20} .ev-기타{color:#718096}
 
 /* ===== 로그인 ===== */
 #loginPage { min-height:100vh; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,#4a5568,#2d3748) !important; }
@@ -58,7 +54,7 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","맑�
 .topbar-right { display:flex; align-items:center; gap:8px; }
 .user-badge { background:rgba(255,255,255,0.15); border-radius:20px; padding:4px 12px; font-size:13px; color:white !important; }
 .role-badge { border-radius:12px; padding:3px 10px; font-size:11px; font-weight:700; color:white !important; }
-.role-badge.master { background:#e53e3e; } .role-badge.manager { background:#dd6b20; } .role-badge.member { background:rgba(255,255,255,0.25); }
+.role-badge.master{background:#e53e3e} .role-badge.manager{background:#dd6b20} .role-badge.member{background:rgba(255,255,255,0.25)}
 .btn-icon { background:rgba(255,255,255,0.1); border:none; color:white !important; cursor:pointer; font-size:16px; padding:6px 10px; border-radius:8px; }
 
 .tabs { display:flex; background:#fff !important; border-bottom:1px solid var(--border); position:sticky; top:52px; z-index:99; overflow-x:auto; box-shadow:0 1px 4px rgba(0,0,0,0.06); }
@@ -86,27 +82,15 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","맑�
 
 .cal-weekdays { display:grid; grid-template-columns:repeat(7,1fr); background:#f7f8fa !important; padding:8px 0; }
 .cal-weekday { text-align:center; font-size:11px; font-weight:700; color:var(--text-sub); padding:4px 0; }
-.cal-weekday:first-child { color:#e53e3e; } .cal-weekday:last-child { color:#3182ce; }
+.cal-weekday:first-child{color:#e53e3e} .cal-weekday:last-child{color:#3182ce}
 .cal-days { display:grid; grid-template-columns:repeat(7,1fr); }
 
-/* ★ 칸 높이 증가 (범례 없어진 공간 활용) */
-.cal-day {
-  height: 86px;   /* 64 → 86px */
-  overflow: hidden;
-  padding: 4px 3px;
-  border-top: 1px solid var(--border);
-  border-right: 1px solid #f0f0f0;
-  cursor: pointer;
-  transition: filter 0.15s;
-  position: relative;
-  background: #fff !important;
-}
-.cal-day.sunday   { background: var(--sun-bg) !important; }
-.cal-day.saturday { background: var(--sat-bg) !important; }
-/* ★ 공휴일 배경 복구 */
-.cal-day.holiday-day { background: var(--hol-bg) !important; }
-.cal-day:hover { filter: brightness(0.96); }
-.cal-day.other-month { opacity: 0.45; }
+.cal-day { height:86px; overflow:hidden; padding:4px 3px; border-top:1px solid var(--border); border-right:1px solid #f0f0f0; cursor:pointer; transition:filter 0.15s; position:relative; background:#fff !important; }
+.cal-day.sunday   { background:var(--sun-bg) !important; }
+.cal-day.saturday { background:var(--sat-bg) !important; }
+.cal-day.holiday-day { background:var(--hol-bg) !important; }
+.cal-day:hover { filter:brightness(0.96); }
+.cal-day.other-month { opacity:0.45; }
 .cal-day.today .day-num { background:var(--accent); color:white !important; border-radius:50%; width:22px; height:22px; display:flex; align-items:center; justify-content:center; }
 .cal-day.selected { outline:2px solid var(--accent); outline-offset:-1px; filter:brightness(0.95); }
 
@@ -114,33 +98,56 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","맑�
 .cal-day.sunday   .day-num { color:#e53e3e !important; }
 .cal-day.saturday .day-num { color:#3182ce !important; }
 .cal-day.holiday-day .day-num { color:#e53e3e !important; }
-
 .day-holiday-name { font-size:9px; color:var(--holiday); font-weight:600; line-height:1.2; margin-bottom:2px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
 
-/* ★ 일정 텍스트 표시 */
-.day-events { display:flex; flex-direction:column; gap:1px; }
+/* ★ 일정 2열 그리드 표시 */
+.day-events {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0px 2px;
+}
 .day-event-text {
   font-size: 10px;
   font-weight: 700;
-  line-height: 1.3;
+  line-height: 1.4;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-/* 날짜 상세 */
+/* ===== 날짜 상세 ===== */
 .day-detail { background:#fff !important; border-radius:16px; box-shadow:var(--shadow); padding:16px; margin-bottom:12px; display:none; }
 .day-detail.show { display:block; }
 .day-detail h3 { font-size:16px; font-weight:700; margin-bottom:4px; color:#2d3748 !important; }
 .holiday-banner { background:#fff5f5; border:1px solid #fed7d7; border-radius:10px; padding:8px 12px; margin-bottom:10px; font-size:13px; color:var(--holiday); font-weight:600; }
 .attendance-info { font-size:13px; color:var(--text-sub); margin-bottom:12px; font-weight:600; }
 .schedule-list { display:flex; flex-direction:column; gap:8px; }
-.schedule-item { display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:10px; background:#f7f8fa !important; flex-wrap:wrap; }
-.schedule-type-badge { color:white; font-size:11px; font-weight:700; padding:3px 8px; border-radius:12px; white-space:nowrap; flex-shrink:0; }
+
+/* ★ 대기중 / 확정 구분 */
+.schedule-item {
+  display:flex; align-items:flex-start; gap:10px; padding:10px 12px;
+  border-radius:10px; background:#f7f8fa !important; flex-wrap:wrap;
+}
+.schedule-item.status-pending-item {
+  background:#fffbf0 !important;
+  border-left: 3px solid #dd6b20;
+}
+.schedule-item.status-approved-item {
+  background:#f7f8fa !important;
+  border-left: 3px solid #38a169;
+  opacity: 0.85;
+}
+
+.schedule-type-badge { color:white; font-size:11px; font-weight:700; padding:3px 8px; border-radius:12px; white-space:nowrap; flex-shrink:0; margin-top:1px; }
 .schedule-info { flex:1; min-width:80px; }
 .schedule-name { font-size:14px; font-weight:600; color:#2d3748 !important; }
-.schedule-note { font-size:12px; color:var(--text-sub); }
-.schedule-actions { display:flex; gap:4px; flex-wrap:wrap; align-items:center; }
+.schedule-note { font-size:12px; color:var(--text-sub); margin-top:1px; }
+
+/* ★ 신청/확정 시간 표시 */
+.schedule-time { font-size:11px; color:#a0aec0; margin-top:3px; line-height:1.5; }
+.schedule-time span { display:inline-block; }
+
+.schedule-actions { display:flex; gap:4px; flex-wrap:wrap; align-items:center; margin-left:auto; }
 .status-pending { color:#dd6b20; font-size:12px; font-weight:600; }
 .status-approved { color:var(--success); font-size:12px; font-weight:600; }
 .btn-approve { background:var(--success); color:white; border:none; border-radius:6px; padding:4px 10px; font-size:12px; cursor:pointer; font-family:inherit; }
@@ -182,15 +189,15 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","맑�
 .member-name { font-size:15px; font-weight:600; color:#2d3748 !important; }
 .member-id { font-size:12px; color:var(--text-sub); }
 .member-actions { display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
-.role-label.master { color:#e53e3e; font-size:12px; font-weight:700; }
-.role-label.manager { color:#dd6b20; font-size:12px; font-weight:700; }
-.role-label.member { color:var(--accent); font-size:12px; font-weight:700; }
+.role-label.master{color:#e53e3e;font-size:12px;font-weight:700}
+.role-label.manager{color:#dd6b20;font-size:12px;font-weight:700}
+.role-label.member{color:var(--accent);font-size:12px;font-weight:700}
 .btn-small { padding:5px 12px; border-radius:8px; font-size:12px; cursor:pointer; border:1.5px solid var(--border); background:#fff !important; font-weight:600; font-family:inherit; color:#2d3748 !important; }
 .group-toggle { display:flex; border-radius:8px; overflow:hidden; border:1.5px solid var(--border); }
 .group-btn { padding:5px 8px; font-size:11px; cursor:pointer; border:none; background:#fff !important; font-weight:600; font-family:inherit; transition:all 0.2s; color:#2d3748 !important; white-space:nowrap; }
-.group-btn.active-staff { background:#667eea !important; color:white !important; }
-.group-btn.active-counselor { background:#38a169 !important; color:white !important; }
-.group-btn.active-other { background:#a0aec0 !important; color:white !important; }
+.group-btn.active-staff{background:#667eea !important;color:white !important}
+.group-btn.active-counselor{background:#38a169 !important;color:white !important}
+.group-btn.active-other{background:#a0aec0 !important;color:white !important}
 
 .holiday-item { display:flex; align-items:center; justify-content:space-between; padding:10px 12px; border-radius:10px; background:#f7f8fa !important; margin-bottom:8px; }
 .holiday-date { font-size:13px; font-weight:700; color:var(--holiday); }
@@ -285,14 +292,12 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","맑�
         <div class="cal-days" id="calDays"></div>
       </div>
     </div>
-    <!-- 날짜 상세 -->
     <div class="day-detail" id="dayDetail">
       <h3 id="detailTitle"></h3>
       <div class="holiday-banner" id="holidayBanner" style="display:none"></div>
       <div class="attendance-info" id="attendanceInfo"></div>
       <div class="schedule-list" id="scheduleList"></div>
     </div>
-    <!-- ★ 범례 완전 삭제 -->
   </div>
 
   <!-- 신청 탭 -->
@@ -435,65 +440,79 @@ let holidayCache={}, isAnimating=false;
 
 // ===== 날짜 유틸 =====
 function parseLocalDate(str) {
-  const [y,m,d] = str.split('-').map(Number);
-  return new Date(y, m-1, d);
+  const [y,m,d]=str.split('-').map(Number);
+  return new Date(y,m-1,d);
 }
 function toLocalDateStr(date) {
   return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
 }
 
+// ★ Firestore timestamp → "YYYY-MM-DD HH:MM" 변환
+function formatTimestamp(ts) {
+  if (!ts) return null;
+  try {
+    const d = ts.toDate ? ts.toDate() : new Date(ts);
+    const y=d.getFullYear();
+    const mo=String(d.getMonth()+1).padStart(2,'0');
+    const day=String(d.getDate()).padStart(2,'0');
+    const h=String(d.getHours()).padStart(2,'0');
+    const mi=String(d.getMinutes()).padStart(2,'0');
+    return `${y}-${mo}-${day} ${h}:${mi}`;
+  } catch(e) { return null; }
+}
+
 // ===== 스와이프 =====
 let swipeStartX=0, swipeStartY=0, swipeActive=false;
 function initSwipe() {
-  const wrapper = document.querySelector('.cal-wrapper');
-  wrapper.addEventListener('touchstart', e => {
+  const wrapper=document.querySelector('.cal-wrapper');
+  wrapper.addEventListener('touchstart',e=>{
     swipeStartX=e.touches[0].clientX; swipeStartY=e.touches[0].clientY; swipeActive=true;
-  }, {passive:true});
-  wrapper.addEventListener('touchmove', e => {
-    if (!swipeActive) return;
+  },{passive:true});
+  wrapper.addEventListener('touchmove',e=>{
+    if(!swipeActive) return;
     const dx=e.touches[0].clientX-swipeStartX, dy=e.touches[0].clientY-swipeStartY;
-    if (Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>10) e.preventDefault();
-  }, {passive:false});
-  wrapper.addEventListener('touchend', e => {
-    if (!swipeActive||isAnimating) return;
+    if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>10) e.preventDefault();
+  },{passive:false});
+  wrapper.addEventListener('touchend',e=>{
+    if(!swipeActive||isAnimating) return;
     swipeActive=false;
     const dx=e.changedTouches[0].clientX-swipeStartX, dy=e.changedTouches[0].clientY-swipeStartY;
-    if (Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>60) {
-      if (dx<0) changeMonth(1,'left'); else changeMonth(-1,'right');
+    if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>60){
+      if(dx<0) changeMonth(1,'left'); else changeMonth(-1,'right');
     }
-  }, {passive:true});
+  },{passive:true});
 }
 
 // ===== 인증 =====
-window.switchAuthTab = function(tab) {
+window.switchAuthTab=function(tab){
   document.querySelectorAll('.auth-tab').forEach((b,i)=>b.classList.toggle('active',(i===0&&tab==='login')||(i===1&&tab==='signup')));
   document.getElementById('panel-login').classList.toggle('active',tab==='login');
   document.getElementById('panel-signup').classList.toggle('active',tab==='signup');
   ['loginError','signupError','signupSuccess'].forEach(id=>document.getElementById(id).textContent='');
 };
-function idToEmail(id) { return `${id.toLowerCase()}@teamschedule.app`; }
+function idToEmail(id){return `${id.toLowerCase()}@teamschedule.app`;}
 
-window.doLogin = async function() {
+window.doLogin=async function(){
   const id=document.getElementById('loginId').value.trim();
   const pw=document.getElementById('loginPw').value;
   document.getElementById('loginError').textContent='';
-  if (!id||!pw){document.getElementById('loginError').textContent='아이디와 비밀번호를 입력하세요.';return;}
+  if(!id||!pw){document.getElementById('loginError').textContent='아이디와 비밀번호를 입력하세요.';return;}
   try{await signInWithEmailAndPassword(auth,idToEmail(id),pw);}
   catch(e){document.getElementById('loginError').textContent='아이디 또는 비밀번호가 올바르지 않습니다.';}
 };
 
-window.doSignup = async function() {
+window.doSignup=async function(){
   const id=document.getElementById('signupId').value.trim().toLowerCase();
   const pw=document.getElementById('signupPw').value;
   const nick=document.getElementById('signupNick').value.trim();
-  const errEl=document.getElementById('signupError'), sucEl=document.getElementById('signupSuccess');
-  errEl.textContent=''; sucEl.textContent='';
-  if (!id||!pw||!nick){errEl.textContent='모든 항목을 입력하세요.';return;}
-  if (!/^[a-z0-9]{4,20}$/.test(id)){errEl.textContent='아이디는 영문 소문자+숫자 4~20자로 입력하세요.';return;}
-  if (pw.length<6){errEl.textContent='비밀번호는 6자 이상이어야 합니다.';return;}
+  const errEl=document.getElementById('signupError'),sucEl=document.getElementById('signupSuccess');
+  errEl.textContent='';sucEl.textContent='';
+  if(!id||!pw||!nick){errEl.textContent='모든 항목을 입력하세요.';return;}
+  if(!/^[a-z0-9]{4,20}$/.test(id)){errEl.textContent='아이디는 영문 소문자+숫자 4~20자로 입력하세요.';return;}
+  if(pw.length<6){errEl.textContent='비밀번호는 6자 이상이어야 합니다.';return;}
   try{
     const existing=await getDoc(doc(db,'signupRequests',id));
-    if (existing.exists()){errEl.textContent='이미 사용 중이거나 신청된 아이디입니다.';return;}
+    if(existing.exists()){errEl.textContent='이미 사용 중이거나 신청된 아이디입니다.';return;}
     await setDoc(doc(db,'signupRequests',id),{userId:id,nickname:nick,password:pw,status:'pending',createdAt:serverTimestamp()});
     sucEl.textContent='가입 신청이 완료되었습니다! 관리자 승인 후 로그인 가능합니다.';
     ['signupId','signupPw','signupNick'].forEach(id=>document.getElementById(id).value='');
@@ -511,10 +530,10 @@ document.getElementById('loginPw').addEventListener('keyup',e=>{if(e.key==='Ente
 document.getElementById('loginId').addEventListener('keyup',e=>{if(e.key==='Enter')document.getElementById('loginPw').focus();});
 
 onAuthStateChanged(auth,async(user)=>{
-  if (user){
+  if(user){
     currentUser=user;
     const uDoc=await getDoc(doc(db,'users',user.uid));
-    if (uDoc.exists()){currentUserData=uDoc.data();}
+    if(uDoc.exists()){currentUserData=uDoc.data();}
     else{
       currentUserData={name:user.email.split('@')[0],nickname:user.email.split('@')[0],role:'master',userId:user.email.split('@')[0]};
       await setDoc(doc(db,'users',user.uid),{...currentUserData,createdAt:serverTimestamp()});
@@ -540,7 +559,7 @@ function initApp(){
   document.getElementById('startDate').value=todayStr;
   document.getElementById('endDate').value=todayStr;
   const role=currentUserData.role;
-  if (role==='master'){
+  if(role==='master'){
     document.getElementById('tabAdmin').style.display='';
     document.getElementById('tabMembers').style.display='';
     document.getElementById('tabSettings').style.display='';
@@ -548,7 +567,6 @@ function initApp(){
   }else if(role==='manager'){
     document.getElementById('tabAdmin').style.display='';
   }
-  // 버튼 이벤트
   document.getElementById('btnPrev').addEventListener('click',()=>changeMonth(-1,'right'));
   document.getElementById('btnNext').addEventListener('click',()=>changeMonth(1,'left'));
   initSwipe();
@@ -581,7 +599,7 @@ function subscribeAll(){
   }
 }
 
-// ===== 공휴일 API =====
+// ===== 공휴일 =====
 async function fetchHolidays(year,month){
   const key=`${year}${String(month).padStart(2,'0')}`;
   if(holidayCache[key]) return holidayCache[key];
@@ -600,6 +618,18 @@ function getCustomHolidayMap(){
   const map={};
   customHolidays.forEach(h=>{map[h.date.replace(/-/g,'')]=h.name;});
   return map;
+}
+
+// ★ 달력 칸 일정 텍스트 2열 생성
+function buildEventGrid(events) {
+  const entries = Object.entries(events).slice(0, 6);
+  if (entries.length === 0) return '';
+  // 2열 그리드: entries를 그냥 나열하면 CSS grid가 2열로 배치
+  return `<div class="day-events">${
+    entries.map(([type,count]) =>
+      `<div class="day-event-text ev-${type}">${type}${count>1?' '+count:''}</div>`
+    ).join('')
+  }</div>`;
 }
 
 // ===== 달력 =====
@@ -631,7 +661,7 @@ async function renderCalendar(){
   const lastDate=new Date(year,month,0).getDate();
   const todayStr=toLocalDateStr(new Date());
 
-  // 날짜별 일정 집계 (로컬 날짜 기준)
+  // 전체 일정 집계 (이전달/다음달 포함)
   const dayMap={};
   allSchedules.filter(s=>s.status==='approved').forEach(s=>{
     let d=parseLocalDate(s.startDate);
@@ -647,16 +677,18 @@ async function renderCalendar(){
 
   let html='';
 
-  // 이전달
+  // ★ 이전달 날짜 - 달력 안 넘기고 상세만 표시
   for(let i=0;i<firstDay;i++){
     const d=new Date(year,month-1,-firstDay+i+1);
     const dateStr=toLocalDateStr(d);
     const dow=d.getDay();
+    const events=dayMap[dateStr]||{};
     let cls='cal-day other-month';
     if(dow===0) cls+=' sunday';
     if(dow===6) cls+=' saturday';
-    html+=`<div class="${cls}" onclick="changeMonth(-1,'right');setTimeout(()=>showDayDetail('${dateStr}'),350)">
+    html+=`<div class="${cls}" onclick="showDayDetail('${dateStr}')">
       <div class="day-num">${d.getDate()}</div>
+      ${buildEventGrid(events)}
     </div>`;
   }
 
@@ -670,38 +702,33 @@ async function renderCalendar(){
     const holidayName=allHolidays[dateKey];
     const isHoliday=!!holidayName;
     const dow=parseLocalDate(dateStr).getDay();
-
     let cls='cal-day';
     if(dow===0) cls+=' sunday';
     if(dow===6) cls+=' saturday';
-    if(isHoliday) cls+=' holiday-day'; // ★ 공휴일 배경 (일요일보다 우선)
+    if(isHoliday) cls+=' holiday-day';
     if(isToday) cls+=' today';
     if(isSelected) cls+=' selected';
-
-    // ★ 일정 텍스트 표시 (연차 2 형태)
-    const eventRows=Object.entries(events).slice(0,3).map(([type,count])=>
-      `<div class="day-event-text ev-${type}">${type}${count>1?' '+count:''}</div>`
-    ).join('');
-
     const hNameHtml=holidayName?`<div class="day-holiday-name" title="${holidayName}">${holidayName}</div>`:'';
     html+=`<div class="${cls}" onclick="showDayDetail('${dateStr}')">
       <div class="day-num">${d}</div>
       ${hNameHtml}
-      <div class="day-events">${eventRows}</div>
+      ${buildEventGrid(events)}
     </div>`;
   }
 
-  // 다음달
+  // ★ 다음달 날짜 - 달력 안 넘기고 상세만 표시
   const remaining=(7-(firstDay+lastDate)%7)%7;
   for(let d=1;d<=remaining;d++){
     const nextDate=new Date(year,month,d);
     const dateStr=toLocalDateStr(nextDate);
     const dow=nextDate.getDay();
+    const events=dayMap[dateStr]||{};
     let cls='cal-day other-month';
     if(dow===0) cls+=' sunday';
     if(dow===6) cls+=' saturday';
-    html+=`<div class="${cls}" onclick="changeMonth(1,'left');setTimeout(()=>showDayDetail('${dateStr}'),350)">
+    html+=`<div class="${cls}" onclick="showDayDetail('${dateStr}')">
       <div class="day-num">${d}</div>
+      ${buildEventGrid(events)}
     </div>`;
   }
 
@@ -738,24 +765,44 @@ window.showDayDetail=async function(dateStr){
     detail.scrollIntoView({behavior:'smooth',block:'nearest'});
     return;
   }
+
+  // ★ 정렬: 대기중 먼저, 확정 나중
+  const sorted=[
+    ...daySchedules.filter(s=>s.status==='pending'),
+    ...daySchedules.filter(s=>s.status==='approved')
+  ];
+
   const role=currentUserData.role;
   const statusMap={pending:'대기중',approved:'확정'};
   const statusCls={pending:'status-pending',approved:'status-approved'};
-  let html=daySchedules.map(s=>{
+
+  let html=sorted.map(s=>{
     const user=allUsers[s.userId]||{nickname:s.userName||'?'};
     const name=user.nickname||user.name||'?';
+    const isPending=s.status==='pending';
+    const itemCls=isPending?'schedule-item status-pending-item':'schedule-item status-approved-item';
+
+    // ★ 신청/확정 시간
+    const createdStr=formatTimestamp(s.createdAt);
+    const approvedStr=formatTimestamp(s.approvedAt);
+    let timeHtml='<div class="schedule-time">';
+    if(createdStr) timeHtml+=`<span>신청 ${createdStr}</span>`;
+    if(approvedStr) timeHtml+=`<span style="margin-left:8px">확정 ${approvedStr}</span>`;
+    timeHtml+='</div>';
+
     let actions='';
-    if((role==='master'||role==='manager')&&s.status==='pending'){
+    if((role==='master'||role==='manager')&&isPending){
       actions+=`<button class="btn-approve" onclick="approveSchedule('${s.id}')">확정</button>`;
     }
     if(role==='master'||role==='manager'||s.userId===currentUser.uid){
       actions+=` <button class="btn-delete" onclick="openDeleteModal('${s.id}','schedule')">삭제</button>`;
     }
-    return `<div class="schedule-item">
+    return `<div class="${itemCls}">
       <span class="schedule-type-badge type-${s.type}">${s.type}</span>
       <div class="schedule-info">
         <div class="schedule-name">${name}</div>
         ${s.note?`<div class="schedule-note">${s.note}</div>`:''}
+        ${timeHtml}
       </div>
       <div class="schedule-actions">
         <span class="${statusCls[s.status]||'status-pending'}">${statusMap[s.status]||'대기중'}</span>
@@ -784,7 +831,7 @@ window.submitRequest=async function(){
     await addDoc(collection(db,'schedules'),{userId:currentUser.uid,userName:nick,type:selectedType,startDate:start,endDate:end,note,status:'pending',createdAt:serverTimestamp()});
     showToast('신청이 완료되었습니다!');
     document.getElementById('requestNote').value='';
-  }catch(e){showToast('신청 중 오류가 발생했습니다.');console.error(e);}
+  }catch(e){showToast('신청 중 오류가 발생했습니다.');}
 };
 
 function renderMyRequests(){
@@ -881,9 +928,13 @@ function updatePendingBadge(){
   if(total>0){badge.textContent=total;badge.style.display='';}
   else{badge.style.display='none';}
 }
+
+// ★ 확정 시 approvedAt 타임스탬프 저장
 window.approveSchedule=async function(id){
-  try{await updateDoc(doc(db,'schedules',id),{status:'approved'});showToast('확정되었습니다.');}
-  catch(e){showToast('오류가 발생했습니다.');}
+  try{
+    await updateDoc(doc(db,'schedules',id),{status:'approved',approvedAt:serverTimestamp()});
+    showToast('확정되었습니다.');
+  }catch(e){showToast('오류가 발생했습니다.');}
 };
 
 window.openDeleteModal=function(id,type){deleteTargetId=id;deleteTargetType=type;document.getElementById('deleteModal').classList.add('show');};
