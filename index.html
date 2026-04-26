@@ -61,7 +61,6 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","맑�
 .tab { flex:1; min-width:60px; padding:12px 4px; text-align:center; font-size:12px; font-weight:600; color:var(--text-sub); cursor:pointer; border-bottom:2px solid transparent; transition:all 0.2s; border-top:none; border-left:none; border-right:none; background:none; white-space:nowrap; }
 .tab.active { color:var(--accent); border-bottom-color:var(--accent); }
 .tab .badge { background:var(--danger); color:white; border-radius:10px; padding:1px 6px; font-size:11px; margin-left:3px; }
-
 .content { padding:16px; max-width:800px; margin:0 auto; width:100%; }
 
 /* ===== 달력 ===== */
@@ -85,31 +84,38 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","맑�
 .cal-weekday:first-child{color:#e53e3e} .cal-weekday:last-child{color:#3182ce}
 .cal-days { display:grid; grid-template-columns:repeat(7,1fr); }
 
-.cal-day { height:86px; overflow:hidden; padding:4px 3px; border-top:1px solid var(--border); border-right:1px solid #f0f0f0; cursor:pointer; transition:filter 0.15s; position:relative; background:#fff !important; }
+/* ★ 칸 높이: 5개 일정 + 날짜 + 공휴일명 여유있게 */
+.cal-day {
+  height: 100px;
+  overflow: hidden;
+  padding: 4px 3px;
+  border-top: 1px solid var(--border);
+  border-right: 1px solid #f0f0f0;
+  cursor: pointer;
+  transition: filter 0.15s;
+  position: relative;
+  background: #fff !important;
+}
 .cal-day.sunday   { background:var(--sun-bg) !important; }
 .cal-day.saturday { background:var(--sat-bg) !important; }
 .cal-day.holiday-day { background:var(--hol-bg) !important; }
 .cal-day:hover { filter:brightness(0.96); }
-.cal-day.other-month { opacity:0.45; }
+.cal-day.other-month { opacity:0.5; }
 .cal-day.today .day-num { background:var(--accent); color:white !important; border-radius:50%; width:22px; height:22px; display:flex; align-items:center; justify-content:center; }
 .cal-day.selected { outline:2px solid var(--accent); outline-offset:-1px; filter:brightness(0.95); }
 
-.day-num { font-size:13px; font-weight:500; margin-bottom:2px; width:22px; height:22px; display:flex; align-items:center; justify-content:center; color:#2d3748 !important; }
+.day-num { font-size:13px; font-weight:500; margin-bottom:1px; width:22px; height:22px; display:flex; align-items:center; justify-content:center; color:#2d3748 !important; }
 .cal-day.sunday   .day-num { color:#e53e3e !important; }
 .cal-day.saturday .day-num { color:#3182ce !important; }
 .cal-day.holiday-day .day-num { color:#e53e3e !important; }
-.day-holiday-name { font-size:9px; color:var(--holiday); font-weight:600; line-height:1.2; margin-bottom:2px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
+.day-holiday-name { font-size:9px; color:var(--holiday); font-weight:600; line-height:1.2; margin-bottom:1px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
 
-/* ★ 일정 2열 그리드 표시 */
-.day-events {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0px 2px;
-}
+/* ★ 일정 1열, 최대 5개 */
+.day-events { display:flex; flex-direction:column; gap:0px; }
 .day-event-text {
   font-size: 10px;
   font-weight: 700;
-  line-height: 1.4;
+  line-height: 1.45;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -122,31 +128,14 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","맑�
 .holiday-banner { background:#fff5f5; border:1px solid #fed7d7; border-radius:10px; padding:8px 12px; margin-bottom:10px; font-size:13px; color:var(--holiday); font-weight:600; }
 .attendance-info { font-size:13px; color:var(--text-sub); margin-bottom:12px; font-weight:600; }
 .schedule-list { display:flex; flex-direction:column; gap:8px; }
-
-/* ★ 대기중 / 확정 구분 */
-.schedule-item {
-  display:flex; align-items:flex-start; gap:10px; padding:10px 12px;
-  border-radius:10px; background:#f7f8fa !important; flex-wrap:wrap;
-}
-.schedule-item.status-pending-item {
-  background:#fffbf0 !important;
-  border-left: 3px solid #dd6b20;
-}
-.schedule-item.status-approved-item {
-  background:#f7f8fa !important;
-  border-left: 3px solid #38a169;
-  opacity: 0.85;
-}
-
+.schedule-item { display:flex; align-items:flex-start; gap:10px; padding:10px 12px; border-radius:10px; background:#f7f8fa !important; flex-wrap:wrap; }
+.schedule-item.status-pending-item { background:#fffbf0 !important; border-left:3px solid #dd6b20; }
+.schedule-item.status-approved-item { background:#f7f8fa !important; border-left:3px solid #38a169; opacity:0.85; }
 .schedule-type-badge { color:white; font-size:11px; font-weight:700; padding:3px 8px; border-radius:12px; white-space:nowrap; flex-shrink:0; margin-top:1px; }
 .schedule-info { flex:1; min-width:80px; }
 .schedule-name { font-size:14px; font-weight:600; color:#2d3748 !important; }
 .schedule-note { font-size:12px; color:var(--text-sub); margin-top:1px; }
-
-/* ★ 신청/확정 시간 표시 */
 .schedule-time { font-size:11px; color:#a0aec0; margin-top:3px; line-height:1.5; }
-.schedule-time span { display:inline-block; }
-
 .schedule-actions { display:flex; gap:4px; flex-wrap:wrap; align-items:center; margin-left:auto; }
 .status-pending { color:#dd6b20; font-size:12px; font-weight:600; }
 .status-approved { color:var(--success); font-size:12px; font-weight:600; }
@@ -165,12 +154,10 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","맑�
 .type-btn { padding:10px 4px; border:2px solid var(--border); border-radius:10px; background:#fff !important; font-size:13px; cursor:pointer; text-align:center; font-weight:600; transition:all 0.2s; color:var(--text-sub); font-family:inherit; }
 .type-btn.selected { border-color:var(--accent); color:var(--accent); background:#eef2ff !important; }
 .btn-submit { width:100%; padding:13px; background:var(--primary); color:white; border:none; border-radius:10px; font-size:15px; font-weight:700; cursor:pointer; font-family:inherit; }
-
 .my-request { display:flex; align-items:center; gap:10px; padding:12px; border-radius:12px; border:1.5px solid var(--border); margin-bottom:8px; background:#fff !important; flex-wrap:wrap; }
 .request-dates { font-size:13px; font-weight:600; color:#2d3748 !important; }
 .request-sub { font-size:12px; color:var(--text-sub); }
 .btn-cancel-req { background:#f7f8fa !important; color:var(--danger); border:1px solid var(--border); border-radius:8px; padding:5px 10px; font-size:12px; cursor:pointer; font-weight:600; font-family:inherit; }
-
 .pending-item { background:#fff !important; border-radius:12px; padding:14px; box-shadow:var(--shadow); margin-bottom:10px; }
 .pending-header { display:flex; align-items:center; gap:8px; margin-bottom:6px; flex-wrap:wrap; }
 .pending-name { font-size:15px; font-weight:700; color:#2d3748 !important; }
@@ -178,11 +165,9 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","맑�
 .pending-actions { display:flex; gap:8px; }
 .btn-lg-approve { flex:1; padding:10px; background:var(--success); color:white; border:none; border-radius:10px; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; }
 .btn-lg-delete { flex:1; padding:10px; background:#a0aec0; color:white; border:none; border-radius:10px; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; }
-
 .signup-item { background:#fff !important; border-radius:12px; padding:14px; box-shadow:var(--shadow); margin-bottom:10px; }
 .signup-header { display:flex; align-items:center; gap:8px; margin-bottom:6px; }
 .signup-detail { font-size:13px; color:var(--text-sub); margin-bottom:10px; }
-
 .member-item { display:flex; align-items:center; justify-content:space-between; padding:12px; background:#fff !important; border-radius:12px; box-shadow:var(--shadow); margin-bottom:8px; flex-wrap:wrap; gap:8px; }
 .member-info { display:flex; align-items:center; gap:10px; }
 .member-avatar { width:40px; height:40px; border-radius:50%; background:var(--primary); color:white; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:16px; flex-shrink:0; }
@@ -198,13 +183,11 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","맑�
 .group-btn.active-staff{background:#667eea !important;color:white !important}
 .group-btn.active-counselor{background:#38a169 !important;color:white !important}
 .group-btn.active-other{background:#a0aec0 !important;color:white !important}
-
 .holiday-item { display:flex; align-items:center; justify-content:space-between; padding:10px 12px; border-radius:10px; background:#f7f8fa !important; margin-bottom:8px; }
 .holiday-date { font-size:13px; font-weight:700; color:var(--holiday); }
 .holiday-name-text { font-size:13px; color:#2d3748 !important; }
 .btn-del-holiday { background:none; border:none; color:#a0aec0; cursor:pointer; font-size:16px; }
 .section-title { font-size:14px; font-weight:700; color:var(--text-sub); margin:16px 0 8px; }
-
 .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.45); display:none; align-items:center; justify-content:center; z-index:1000; padding:20px; }
 .modal-overlay.show { display:flex; }
 .modal { background:#fff !important; border-radius:20px; padding:24px; width:100%; max-width:360px; box-shadow:0 16px 48px rgba(0,0,0,0.18); }
@@ -214,13 +197,11 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","맑�
 .btn-cancel-modal { flex:1; padding:11px; background:#f7f8fa !important; border:1.5px solid var(--border); border-radius:10px; font-size:14px; cursor:pointer; font-weight:600; font-family:inherit; color:#2d3748 !important; }
 .btn-confirm { flex:1; padding:11px; background:var(--primary); color:white !important; border:none; border-radius:10px; font-size:14px; cursor:pointer; font-weight:700; font-family:inherit; }
 .btn-confirm-danger { flex:1; padding:11px; background:var(--danger); color:white !important; border:none; border-radius:10px; font-size:14px; cursor:pointer; font-weight:700; font-family:inherit; }
-
 .empty-state { text-align:center; padding:30px 20px; color:var(--text-sub); }
 .empty-state .icon { font-size:40px; margin-bottom:10px; }
 .loading { text-align:center; padding:20px; color:var(--text-sub); font-size:14px; }
 .toast { position:fixed; bottom:30px; left:50%; transform:translateX(-50%); background:#2d3748; color:white; padding:12px 24px; border-radius:12px; font-size:14px; z-index:9999; opacity:0; transition:opacity 0.3s; white-space:nowrap; pointer-events:none; box-shadow:0 4px 16px rgba(0,0,0,0.2); }
 .toast.show { opacity:1; }
-
 @media(max-width:400px) { .form-row { grid-template-columns:1fr; } }
 </style>
 </head>
@@ -274,7 +255,6 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","맑�
     <button class="tab" onclick="showTab('settings',this)" id="tabSettings" style="display:none">⚙️ 설정</button>
   </div>
 
-  <!-- 달력 탭 -->
   <div id="tab-calendar" class="content">
     <div class="calendar-header">
       <button class="btn-nav" id="btnPrev">◀</button>
@@ -300,7 +280,6 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","맑�
     </div>
   </div>
 
-  <!-- 신청 탭 -->
   <div id="tab-request" class="content" style="display:none">
     <div class="card">
       <h3>📝 일정 신청</h3>
@@ -327,7 +306,6 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","맑�
     </div>
   </div>
 
-  <!-- 승인 탭 -->
   <div id="tab-admin" class="content" style="display:none">
     <div class="card" id="signupApprovalCard" style="display:none">
       <h3>🆕 가입 대기</h3>
@@ -343,7 +321,6 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","맑�
     </div>
   </div>
 
-  <!-- 구성원 탭 -->
   <div id="tab-members" class="content" style="display:none">
     <div class="card">
       <h3>👥 구성원 목록</h3>
@@ -351,7 +328,6 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","맑�
     </div>
   </div>
 
-  <!-- 설정 탭 -->
   <div id="tab-settings" class="content" style="display:none">
     <div class="card">
       <h3>🔴 커스텀 공휴일 추가</h3>
@@ -438,48 +414,84 @@ let cancelTargetId=null, roleTargetId=null, deleteTargetId=null, deleteTargetTyp
 let unsubSchedules=null, unsubUsers=null, unsubHolidays=null, unsubSignups=null;
 let holidayCache={}, isAnimating=false;
 
-// ===== 날짜 유틸 =====
-function parseLocalDate(str) {
-  const [y,m,d]=str.split('-').map(Number);
-  return new Date(y,m-1,d);
-}
-function toLocalDateStr(date) {
-  return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
+function parseLocalDate(str){const[y,m,d]=str.split('-').map(Number);return new Date(y,m-1,d);}
+function toLocalDateStr(date){return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;}
+function formatTimestamp(ts){
+  if(!ts) return null;
+  try{
+    const d=ts.toDate?ts.toDate():new Date(ts);
+    return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+  }catch(e){return null;}
 }
 
-// ★ Firestore timestamp → "YYYY-MM-DD HH:MM" 변환
-function formatTimestamp(ts) {
-  if (!ts) return null;
-  try {
-    const d = ts.toDate ? ts.toDate() : new Date(ts);
-    const y=d.getFullYear();
-    const mo=String(d.getMonth()+1).padStart(2,'0');
-    const day=String(d.getDate()).padStart(2,'0');
-    const h=String(d.getHours()).padStart(2,'0');
-    const mi=String(d.getMinutes()).padStart(2,'0');
-    return `${y}-${mo}-${day} ${h}:${mi}`;
-  } catch(e) { return null; }
+// ===== 공휴일 API =====
+async function fetchHolidays(year,month){
+  const key=`${year}${String(month).padStart(2,'0')}`;
+  if(holidayCache[key]) return holidayCache[key];
+  try{
+    const url=`https://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getRestDeInfo?serviceKey=${HOLIDAY_API_KEY}&solYear=${year}&solMonth=${String(month).padStart(2,'0')}&_type=json&numOfRows=50`;
+    const res=await fetch(url);
+    const json=await res.json();
+    const items=json?.response?.body?.items?.item;
+    const result={};
+    if(items){const arr=Array.isArray(items)?items:[items];arr.forEach(h=>{result[String(h.locdate)]=h.dateName;});}
+    holidayCache[key]=result;
+    return result;
+  }catch(e){return{};}
+}
+function getCustomHolidayMap(){
+  const map={};
+  customHolidays.forEach(h=>{map[h.date.replace(/-/g,'')]=h.name;});
+  return map;
+}
+
+// ★ 달력에 표시할 전체 공휴일 맵 (이번달 + 인접달 포함)
+async function getAllHolidaysForMonth(year, month){
+  const thisMonth = await fetchHolidays(year, month);
+  // 이전달, 다음달도 미리 로드 (이전달/다음달 날짜에 공휴일 표시 위해)
+  const prevDate = new Date(year, month-2, 1);
+  const nextDate = new Date(year, month, 1);
+  const prevMonth = await fetchHolidays(prevDate.getFullYear(), prevDate.getMonth()+1);
+  const nextMonth = await fetchHolidays(nextDate.getFullYear(), nextDate.getMonth()+1);
+  const customMap = getCustomHolidayMap();
+  return {...prevMonth, ...thisMonth, ...nextMonth, ...customMap};
+}
+
+// ★ 달력 칸 HTML 생성 헬퍼
+function buildDayCell(dateStr, d, cls, events, allHolidays){
+  const dateKey = dateStr.replace(/-/g,'');
+  const holidayName = allHolidays[dateKey];
+  if(holidayName) cls += ' holiday-day';
+
+  // 일정 1열, 최대 5개
+  const entries = Object.entries(events).slice(0,5);
+  const eventHtml = entries.length > 0
+    ? `<div class="day-events">${entries.map(([type,count])=>`<div class="day-event-text ev-${type}">${type}${count>1?' '+count:''}</div>`).join('')}</div>`
+    : '';
+  const hNameHtml = holidayName ? `<div class="day-holiday-name" title="${holidayName}">${holidayName}</div>` : '';
+
+  return `<div class="${cls}" onclick="showDayDetail('${dateStr}')">
+    <div class="day-num">${d}</div>
+    ${hNameHtml}
+    ${eventHtml}
+  </div>`;
 }
 
 // ===== 스와이프 =====
 let swipeStartX=0, swipeStartY=0, swipeActive=false;
-function initSwipe() {
+function initSwipe(){
   const wrapper=document.querySelector('.cal-wrapper');
-  wrapper.addEventListener('touchstart',e=>{
-    swipeStartX=e.touches[0].clientX; swipeStartY=e.touches[0].clientY; swipeActive=true;
-  },{passive:true});
+  wrapper.addEventListener('touchstart',e=>{swipeStartX=e.touches[0].clientX;swipeStartY=e.touches[0].clientY;swipeActive=true;},{passive:true});
   wrapper.addEventListener('touchmove',e=>{
     if(!swipeActive) return;
-    const dx=e.touches[0].clientX-swipeStartX, dy=e.touches[0].clientY-swipeStartY;
+    const dx=e.touches[0].clientX-swipeStartX,dy=e.touches[0].clientY-swipeStartY;
     if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>10) e.preventDefault();
   },{passive:false});
   wrapper.addEventListener('touchend',e=>{
     if(!swipeActive||isAnimating) return;
     swipeActive=false;
-    const dx=e.changedTouches[0].clientX-swipeStartX, dy=e.changedTouches[0].clientY-swipeStartY;
-    if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>60){
-      if(dx<0) changeMonth(1,'left'); else changeMonth(-1,'right');
-    }
+    const dx=e.changedTouches[0].clientX-swipeStartX,dy=e.changedTouches[0].clientY-swipeStartY;
+    if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>60){if(dx<0)changeMonth(1,'left');else changeMonth(-1,'right');}
   },{passive:true});
 }
 
@@ -525,7 +537,6 @@ window.confirmLogout=async function(){
   [unsubSchedules,unsubUsers,unsubHolidays,unsubSignups].forEach(u=>u&&u());
   await signOut(auth);
 };
-
 document.getElementById('loginPw').addEventListener('keyup',e=>{if(e.key==='Enter')doLogin();});
 document.getElementById('loginId').addEventListener('keyup',e=>{if(e.key==='Enter')document.getElementById('loginPw').focus();});
 
@@ -576,7 +587,7 @@ function initApp(){
 function subscribeAll(){
   unsubSchedules=onSnapshot(query(collection(db,'schedules'),orderBy('startDate')),snap=>{
     allSchedules=snap.docs.map(d=>({id:d.id,...d.data()}));
-    renderCalendar(); renderMyRequests();
+    renderCalendar();renderMyRequests();
     if(currentUserData.role!=='member'){renderPendingList();renderAllRequests();updatePendingBadge();}
     if(selectedDate) showDayDetail(selectedDate);
   });
@@ -588,48 +599,15 @@ function subscribeAll(){
   });
   unsubHolidays=onSnapshot(query(collection(db,'holidays'),orderBy('date')),snap=>{
     customHolidays=snap.docs.map(d=>({id:d.id,...d.data()}));
-    renderCustomHolidayList(); renderCalendar();
+    renderCustomHolidayList();renderCalendar();
     if(selectedDate) showDayDetail(selectedDate);
   });
   if(currentUserData.role==='master'){
     unsubSignups=onSnapshot(query(collection(db,'signupRequests'),where('status','==','pending')),snap=>{
       signupRequests=snap.docs.map(d=>({id:d.id,...d.data()}));
-      renderSignupPending(); updatePendingBadge();
+      renderSignupPending();updatePendingBadge();
     });
   }
-}
-
-// ===== 공휴일 =====
-async function fetchHolidays(year,month){
-  const key=`${year}${String(month).padStart(2,'0')}`;
-  if(holidayCache[key]) return holidayCache[key];
-  try{
-    const url=`https://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getRestDeInfo?serviceKey=${HOLIDAY_API_KEY}&solYear=${year}&solMonth=${String(month).padStart(2,'0')}&_type=json&numOfRows=50`;
-    const res=await fetch(url);
-    const json=await res.json();
-    const items=json?.response?.body?.items?.item;
-    const result={};
-    if(items){const arr=Array.isArray(items)?items:[items];arr.forEach(h=>{result[String(h.locdate)]=h.dateName;});}
-    holidayCache[key]=result;
-    return result;
-  }catch(e){return{};}
-}
-function getCustomHolidayMap(){
-  const map={};
-  customHolidays.forEach(h=>{map[h.date.replace(/-/g,'')]=h.name;});
-  return map;
-}
-
-// ★ 달력 칸 일정 텍스트 2열 생성
-function buildEventGrid(events) {
-  const entries = Object.entries(events).slice(0, 6);
-  if (entries.length === 0) return '';
-  // 2열 그리드: entries를 그냥 나열하면 CSS grid가 2열로 배치
-  return `<div class="day-events">${
-    entries.map(([type,count]) =>
-      `<div class="day-event-text ev-${type}">${type}${count>1?' '+count:''}</div>`
-    ).join('')
-  }</div>`;
 }
 
 // ===== 달력 =====
@@ -654,14 +632,15 @@ window.changeMonth=function(delta,direction){
 async function renderCalendar(){
   const year=currentMonth.getFullYear(), month=currentMonth.getMonth()+1;
   document.getElementById('calTitle').textContent=`${year}년 ${month}월`;
-  const apiHolidays=await fetchHolidays(year,month);
-  const customMap=getCustomHolidayMap();
-  const allHolidays={...apiHolidays,...customMap};
+
+  // ★ 이전달/다음달 포함한 공휴일 맵
+  const allHolidays = await getAllHolidaysForMonth(year, month);
+
   const firstDay=new Date(year,month-1,1).getDay();
   const lastDate=new Date(year,month,0).getDate();
   const todayStr=toLocalDateStr(new Date());
 
-  // 전체 일정 집계 (이전달/다음달 포함)
+  // 전체 일정 집계
   const dayMap={};
   allSchedules.filter(s=>s.status==='approved').forEach(s=>{
     let d=parseLocalDate(s.startDate);
@@ -677,59 +656,39 @@ async function renderCalendar(){
 
   let html='';
 
-  // ★ 이전달 날짜 - 달력 안 넘기고 상세만 표시
+  // 이전달
   for(let i=0;i<firstDay;i++){
     const d=new Date(year,month-1,-firstDay+i+1);
     const dateStr=toLocalDateStr(d);
     const dow=d.getDay();
-    const events=dayMap[dateStr]||{};
     let cls='cal-day other-month';
     if(dow===0) cls+=' sunday';
     if(dow===6) cls+=' saturday';
-    html+=`<div class="${cls}" onclick="showDayDetail('${dateStr}')">
-      <div class="day-num">${d.getDate()}</div>
-      ${buildEventGrid(events)}
-    </div>`;
+    html+=buildDayCell(dateStr, d.getDate(), cls, dayMap[dateStr]||{}, allHolidays);
   }
 
   // 이번달
   for(let d=1;d<=lastDate;d++){
     const dateStr=`${year}-${String(month).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-    const dateKey=dateStr.replace(/-/g,'');
-    const events=dayMap[dateStr]||{};
-    const isToday=dateStr===todayStr;
-    const isSelected=dateStr===selectedDate;
-    const holidayName=allHolidays[dateKey];
-    const isHoliday=!!holidayName;
     const dow=parseLocalDate(dateStr).getDay();
     let cls='cal-day';
     if(dow===0) cls+=' sunday';
     if(dow===6) cls+=' saturday';
-    if(isHoliday) cls+=' holiday-day';
-    if(isToday) cls+=' today';
-    if(isSelected) cls+=' selected';
-    const hNameHtml=holidayName?`<div class="day-holiday-name" title="${holidayName}">${holidayName}</div>`:'';
-    html+=`<div class="${cls}" onclick="showDayDetail('${dateStr}')">
-      <div class="day-num">${d}</div>
-      ${hNameHtml}
-      ${buildEventGrid(events)}
-    </div>`;
+    if(dateStr===todayStr) cls+=' today';
+    if(dateStr===selectedDate) cls+=' selected';
+    html+=buildDayCell(dateStr, d, cls, dayMap[dateStr]||{}, allHolidays);
   }
 
-  // ★ 다음달 날짜 - 달력 안 넘기고 상세만 표시
+  // 다음달
   const remaining=(7-(firstDay+lastDate)%7)%7;
   for(let d=1;d<=remaining;d++){
     const nextDate=new Date(year,month,d);
     const dateStr=toLocalDateStr(nextDate);
     const dow=nextDate.getDay();
-    const events=dayMap[dateStr]||{};
     let cls='cal-day other-month';
     if(dow===0) cls+=' sunday';
     if(dow===6) cls+=' saturday';
-    html+=`<div class="${cls}" onclick="showDayDetail('${dateStr}')">
-      <div class="day-num">${d}</div>
-      ${buildEventGrid(events)}
-    </div>`;
+    html+=buildDayCell(dateStr, d, cls, dayMap[dateStr]||{}, allHolidays);
   }
 
   document.getElementById('calDays').innerHTML=html;
@@ -742,9 +701,7 @@ window.showDayDetail=async function(dateStr){
   detail.classList.add('show');
   const d=parseLocalDate(dateStr);
   document.getElementById('detailTitle').textContent=`${d.getFullYear()}년 ${d.getMonth()+1}월 ${d.getDate()}일`;
-  const apiHolidays=await fetchHolidays(d.getFullYear(),d.getMonth()+1);
-  const customMap=getCustomHolidayMap();
-  const allHolidays={...apiHolidays,...customMap};
+  const allHolidays=await getAllHolidaysForMonth(d.getFullYear(),d.getMonth()+1);
   const dateKey=dateStr.replace(/-/g,'');
   const holidayName=allHolidays[dateKey];
   const banner=document.getElementById('holidayBanner');
@@ -756,9 +713,8 @@ window.showDayDetail=async function(dateStr){
   const absent=daySchedules.filter(s=>s.status==='approved'&&['연차','반차','휴가','공가'].includes(s.type)&&allUsers[s.userId]?.group==='counselor').length;
   const present=counselorCount-absent;
   const dow=parseLocalDate(dateStr).getDay();
-  const isWeekendDay=dow===0||dow===6;
   document.getElementById('attendanceInfo').textContent=
-    (counselorCount>0&&!isWeekendDay&&!holidayName)?`근무 인원 : ${present}명`:'';
+    (counselorCount>0&&dow!==0&&dow!==6&&!holidayName)?`근무 인원 : ${present}명`:'';
 
   if(daySchedules.length===0){
     document.getElementById('scheduleList').innerHTML='<div style="color:#a0aec0;font-size:14px;padding:10px 0">이날 일정이 없습니다.</div>';
@@ -766,12 +722,10 @@ window.showDayDetail=async function(dateStr){
     return;
   }
 
-  // ★ 정렬: 대기중 먼저, 확정 나중
   const sorted=[
     ...daySchedules.filter(s=>s.status==='pending'),
     ...daySchedules.filter(s=>s.status==='approved')
   ];
-
   const role=currentUserData.role;
   const statusMap={pending:'대기중',approved:'확정'};
   const statusCls={pending:'status-pending',approved:'status-approved'};
@@ -781,15 +735,12 @@ window.showDayDetail=async function(dateStr){
     const name=user.nickname||user.name||'?';
     const isPending=s.status==='pending';
     const itemCls=isPending?'schedule-item status-pending-item':'schedule-item status-approved-item';
-
-    // ★ 신청/확정 시간
     const createdStr=formatTimestamp(s.createdAt);
     const approvedStr=formatTimestamp(s.approvedAt);
     let timeHtml='<div class="schedule-time">';
     if(createdStr) timeHtml+=`<span>신청 ${createdStr}</span>`;
     if(approvedStr) timeHtml+=`<span style="margin-left:8px">확정 ${approvedStr}</span>`;
     timeHtml+='</div>';
-
     let actions='';
     if((role==='master'||role==='manager')&&isPending){
       actions+=`<button class="btn-approve" onclick="approveSchedule('${s.id}')">확정</button>`;
@@ -928,13 +879,9 @@ function updatePendingBadge(){
   if(total>0){badge.textContent=total;badge.style.display='';}
   else{badge.style.display='none';}
 }
-
-// ★ 확정 시 approvedAt 타임스탬프 저장
 window.approveSchedule=async function(id){
-  try{
-    await updateDoc(doc(db,'schedules',id),{status:'approved',approvedAt:serverTimestamp()});
-    showToast('확정되었습니다.');
-  }catch(e){showToast('오류가 발생했습니다.');}
+  try{await updateDoc(doc(db,'schedules',id),{status:'approved',approvedAt:serverTimestamp()});showToast('확정되었습니다.');}
+  catch(e){showToast('오류가 발생했습니다.');}
 };
 
 window.openDeleteModal=function(id,type){deleteTargetId=id;deleteTargetType=type;document.getElementById('deleteModal').classList.add('show');};
@@ -1032,7 +979,6 @@ window.showTab=function(tab,el){
   document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
   if(el) el.classList.add('active');
 };
-
 window.closeModal=function(id){document.getElementById(id).classList.remove('show');};
 function showToast(msg){
   const t=document.getElementById('toast');
