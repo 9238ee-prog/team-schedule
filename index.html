@@ -17,25 +17,21 @@
   --bg: #f7f8fa; --text: #2d3748; --text-sub: #718096; --border: #e2e8f0;
   --danger: #e53e3e; --success: #38a169; --holiday: #e53e3e;
   --shadow: 0 2px 8px rgba(0,0,0,0.10);
-  --sun-bg: #fff5f5;   /* 일요일 배경 */
-  --sat-bg: #eff6ff;   /* 토요일 배경 */
+  --sun-bg: #fff5f5;
+  --sat-bg: #eff6ff;
+  --hol-bg: #fff0f0;
 }
 * { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
 body { font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","맑은 고딕",sans-serif; background:#f7f8fa !important; color:#2d3748 !important; forced-color-adjust:none; }
 
-/* 일정 종류 색상 - 변경된 6가지 */
-.type-연차  { background:#e53e3e }
-.type-반차  { background:#f6ad55 }
-.type-휴가  { background:#38a169 }
-.type-공가  { background:#805ad5 }
-.type-출장  { background:#dd6b20 }
-.type-기타  { background:#718096 }
-.dot-연차   { background:#e53e3e }
-.dot-반차   { background:#f6ad55 }
-.dot-휴가   { background:#38a169 }
-.dot-공가   { background:#805ad5 }
-.dot-출장   { background:#dd6b20 }
-.dot-기타   { background:#718096 }
+.type-연차 { background:#e53e3e } .type-반차 { background:#f6ad55 }
+.type-휴가 { background:#38a169 } .type-공가 { background:#805ad5 }
+.type-출장 { background:#dd6b20 } .type-기타 { background:#718096 }
+
+/* 일정 텍스트 색상 */
+.ev-연차 { color:#e53e3e } .ev-반차 { color:#d97706 }
+.ev-휴가 { color:#38a169 } .ev-공가 { color:#805ad5 }
+.ev-출장 { color:#dd6b20 } .ev-기타 { color:#718096 }
 
 /* ===== 로그인 ===== */
 #loginPage { min-height:100vh; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,#4a5568,#2d3748) !important; }
@@ -45,8 +41,7 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","맑�
 .auth-tabs { display:flex; margin-bottom:24px; border-bottom:2px solid var(--border); }
 .auth-tab { flex:1; padding:10px; text-align:center; font-size:14px; font-weight:600; color:var(--text-sub); cursor:pointer; border-bottom:3px solid transparent; transition:all 0.2s; background:none; border-top:none; border-left:none; border-right:none; }
 .auth-tab.active { color:var(--accent); border-bottom-color:var(--accent); }
-.auth-panel { display:none; }
-.auth-panel.active { display:block; }
+.auth-panel { display:none; } .auth-panel.active { display:block; }
 .input-group { margin-bottom:14px; }
 .input-group label { display:block; font-size:13px; color:var(--text-sub); margin-bottom:6px; font-weight:600; }
 .input-group input { width:100%; padding:12px 14px; border:1.5px solid var(--border); border-radius:10px; font-size:15px; outline:none; transition:border 0.2s; font-family:inherit; background:#fff !important; color:#2d3748 !important; }
@@ -63,9 +58,7 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","맑�
 .topbar-right { display:flex; align-items:center; gap:8px; }
 .user-badge { background:rgba(255,255,255,0.15); border-radius:20px; padding:4px 12px; font-size:13px; color:white !important; }
 .role-badge { border-radius:12px; padding:3px 10px; font-size:11px; font-weight:700; color:white !important; }
-.role-badge.master { background:#e53e3e; }
-.role-badge.manager { background:#dd6b20; }
-.role-badge.member { background:rgba(255,255,255,0.25); }
+.role-badge.master { background:#e53e3e; } .role-badge.manager { background:#dd6b20; } .role-badge.member { background:rgba(255,255,255,0.25); }
 .btn-icon { background:rgba(255,255,255,0.1); border:none; color:white !important; cursor:pointer; font-size:16px; padding:6px 10px; border-radius:8px; }
 
 .tabs { display:flex; background:#fff !important; border-bottom:1px solid var(--border); position:sticky; top:52px; z-index:99; overflow-x:auto; box-shadow:0 1px 4px rgba(0,0,0,0.06); }
@@ -80,14 +73,12 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","맑�
 .calendar-header h2 { font-size:18px; font-weight:700; color:#2d3748 !important; }
 .btn-nav { background:#fff !important; border:1.5px solid var(--border); border-radius:10px; padding:7px 14px; cursor:pointer; font-size:16px; color:#2d3748 !important; }
 
-/* ★ 스와이프 애니메이션 컨테이너 */
 .cal-wrapper { overflow:hidden; border-radius:16px; box-shadow:var(--shadow); margin-bottom:16px; }
-.cal-grid { background:#fff !important; transition:transform 0.3s cubic-bezier(0.25,0.46,0.45,0.94), opacity 0.3s ease; }
-.cal-grid.slide-left { animation:slideLeft 0.3s cubic-bezier(0.25,0.46,0.45,0.94) forwards; }
+.cal-grid { background:#fff !important; }
+.cal-grid.slide-left  { animation:slideLeft  0.3s cubic-bezier(0.25,0.46,0.45,0.94) forwards; }
 .cal-grid.slide-right { animation:slideRight 0.3s cubic-bezier(0.25,0.46,0.45,0.94) forwards; }
-.cal-grid.enter-left { animation:enterLeft 0.3s cubic-bezier(0.25,0.46,0.45,0.94) forwards; }
+.cal-grid.enter-left  { animation:enterLeft  0.3s cubic-bezier(0.25,0.46,0.45,0.94) forwards; }
 .cal-grid.enter-right { animation:enterRight 0.3s cubic-bezier(0.25,0.46,0.45,0.94) forwards; }
-
 @keyframes slideLeft  { from{transform:translateX(0);opacity:1} to{transform:translateX(-100%);opacity:0} }
 @keyframes slideRight { from{transform:translateX(0);opacity:1} to{transform:translateX(100%);opacity:0} }
 @keyframes enterLeft  { from{transform:translateX(100%);opacity:0} to{transform:translateX(0);opacity:1} }
@@ -95,33 +86,47 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","맑�
 
 .cal-weekdays { display:grid; grid-template-columns:repeat(7,1fr); background:#f7f8fa !important; padding:8px 0; }
 .cal-weekday { text-align:center; font-size:11px; font-weight:700; color:var(--text-sub); padding:4px 0; }
-.cal-weekday:first-child { color:#e53e3e; }
-.cal-weekday:last-child { color:#3182ce; }
+.cal-weekday:first-child { color:#e53e3e; } .cal-weekday:last-child { color:#3182ce; }
 .cal-days { display:grid; grid-template-columns:repeat(7,1fr); }
 
-/* 달력 칸 - 토/일 배경색 */
-.cal-day { height:68px; overflow:hidden; padding:4px; border-top:1px solid var(--border); border-right:1px solid #f0f0f0; cursor:pointer; transition:background 0.15s; position:relative; background:#fff !important; }
-.cal-day.sunday  { background:var(--sun-bg) !important; }
-.cal-day.saturday { background:var(--sat-bg) !important; }
-.cal-day:hover { filter:brightness(0.96); }
-.cal-day.other-month { opacity:0.5; }
-.cal-day.other-month .day-num { color:#aaa !important; }
+/* ★ 칸 높이 증가 (범례 없어진 공간 활용) */
+.cal-day {
+  height: 86px;   /* 64 → 86px */
+  overflow: hidden;
+  padding: 4px 3px;
+  border-top: 1px solid var(--border);
+  border-right: 1px solid #f0f0f0;
+  cursor: pointer;
+  transition: filter 0.15s;
+  position: relative;
+  background: #fff !important;
+}
+.cal-day.sunday   { background: var(--sun-bg) !important; }
+.cal-day.saturday { background: var(--sat-bg) !important; }
+/* ★ 공휴일 배경 복구 */
+.cal-day.holiday-day { background: var(--hol-bg) !important; }
+.cal-day:hover { filter: brightness(0.96); }
+.cal-day.other-month { opacity: 0.45; }
 .cal-day.today .day-num { background:var(--accent); color:white !important; border-radius:50%; width:22px; height:22px; display:flex; align-items:center; justify-content:center; }
-.cal-day.holiday-day .day-num { color:var(--holiday) !important; }
 .cal-day.selected { outline:2px solid var(--accent); outline-offset:-1px; filter:brightness(0.95); }
-.day-num { font-size:13px; font-weight:500; margin-bottom:1px; width:22px; height:22px; display:flex; align-items:center; justify-content:center; color:#2d3748 !important; }
-/* 일/토 날짜 숫자 색상 */
-.cal-day.sunday  .day-num { color:#e53e3e !important; }
+
+.day-num { font-size:13px; font-weight:500; margin-bottom:2px; width:22px; height:22px; display:flex; align-items:center; justify-content:center; color:#2d3748 !important; }
+.cal-day.sunday   .day-num { color:#e53e3e !important; }
 .cal-day.saturday .day-num { color:#3182ce !important; }
 .cal-day.holiday-day .day-num { color:#e53e3e !important; }
 
 .day-holiday-name { font-size:9px; color:var(--holiday); font-weight:600; line-height:1.2; margin-bottom:2px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
 
-/* ★ 일정 점 + 숫자 표시 */
+/* ★ 일정 텍스트 표시 */
 .day-events { display:flex; flex-direction:column; gap:1px; }
-.day-event-row { display:flex; align-items:center; gap:2px; }
-.day-dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
-.day-event-count { font-size:9px; font-weight:700; color:#2d3748; }
+.day-event-text {
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 /* 날짜 상세 */
 .day-detail { background:#fff !important; border-radius:16px; box-shadow:var(--shadow); padding:16px; margin-bottom:12px; display:none; }
@@ -141,11 +146,6 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","맑�
 .btn-approve { background:var(--success); color:white; border:none; border-radius:6px; padding:4px 10px; font-size:12px; cursor:pointer; font-family:inherit; }
 .btn-delete { background:#a0aec0; color:white; border:none; border-radius:6px; padding:4px 10px; font-size:12px; cursor:pointer; font-family:inherit; }
 
-/* 범례 - 하단, 작은 폰트 */
-.legend { display:flex; flex-wrap:wrap; gap:6px; margin-top:4px; margin-bottom:16px; background:#fff !important; padding:10px 12px; border-radius:12px; box-shadow:var(--shadow); }
-.legend-item { display:flex; align-items:center; gap:4px; font-size:11px; color:#718096 !important; }
-.legend-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
-
 /* 카드/폼 */
 .card { background:#fff !important; border-radius:16px; box-shadow:var(--shadow); padding:20px; margin-bottom:16px; }
 .card h3 { font-size:16px; font-weight:700; margin-bottom:16px; color:var(--primary); }
@@ -159,13 +159,11 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","맑�
 .type-btn.selected { border-color:var(--accent); color:var(--accent); background:#eef2ff !important; }
 .btn-submit { width:100%; padding:13px; background:var(--primary); color:white; border:none; border-radius:10px; font-size:15px; font-weight:700; cursor:pointer; font-family:inherit; }
 
-/* 내 신청 */
 .my-request { display:flex; align-items:center; gap:10px; padding:12px; border-radius:12px; border:1.5px solid var(--border); margin-bottom:8px; background:#fff !important; flex-wrap:wrap; }
 .request-dates { font-size:13px; font-weight:600; color:#2d3748 !important; }
 .request-sub { font-size:12px; color:var(--text-sub); }
 .btn-cancel-req { background:#f7f8fa !important; color:var(--danger); border:1px solid var(--border); border-radius:8px; padding:5px 10px; font-size:12px; cursor:pointer; font-weight:600; font-family:inherit; }
 
-/* 승인 탭 */
 .pending-item { background:#fff !important; border-radius:12px; padding:14px; box-shadow:var(--shadow); margin-bottom:10px; }
 .pending-header { display:flex; align-items:center; gap:8px; margin-bottom:6px; flex-wrap:wrap; }
 .pending-name { font-size:15px; font-weight:700; color:#2d3748 !important; }
@@ -174,12 +172,10 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","맑�
 .btn-lg-approve { flex:1; padding:10px; background:var(--success); color:white; border:none; border-radius:10px; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; }
 .btn-lg-delete { flex:1; padding:10px; background:#a0aec0; color:white; border:none; border-radius:10px; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; }
 
-/* 가입 대기 */
 .signup-item { background:#fff !important; border-radius:12px; padding:14px; box-shadow:var(--shadow); margin-bottom:10px; }
 .signup-header { display:flex; align-items:center; gap:8px; margin-bottom:6px; }
 .signup-detail { font-size:13px; color:var(--text-sub); margin-bottom:10px; }
 
-/* 구성원 */
 .member-item { display:flex; align-items:center; justify-content:space-between; padding:12px; background:#fff !important; border-radius:12px; box-shadow:var(--shadow); margin-bottom:8px; flex-wrap:wrap; gap:8px; }
 .member-info { display:flex; align-items:center; gap:10px; }
 .member-avatar { width:40px; height:40px; border-radius:50%; background:var(--primary); color:white; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:16px; flex-shrink:0; }
@@ -196,14 +192,12 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","맑�
 .group-btn.active-counselor { background:#38a169 !important; color:white !important; }
 .group-btn.active-other { background:#a0aec0 !important; color:white !important; }
 
-/* 공휴일 관리 */
 .holiday-item { display:flex; align-items:center; justify-content:space-between; padding:10px 12px; border-radius:10px; background:#f7f8fa !important; margin-bottom:8px; }
 .holiday-date { font-size:13px; font-weight:700; color:var(--holiday); }
 .holiday-name-text { font-size:13px; color:#2d3748 !important; }
 .btn-del-holiday { background:none; border:none; color:#a0aec0; cursor:pointer; font-size:16px; }
 .section-title { font-size:14px; font-weight:700; color:var(--text-sub); margin:16px 0 8px; }
 
-/* 모달 */
 .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.45); display:none; align-items:center; justify-content:center; z-index:1000; padding:20px; }
 .modal-overlay.show { display:flex; }
 .modal { background:#fff !important; border-radius:20px; padding:24px; width:100%; max-width:360px; box-shadow:0 16px 48px rgba(0,0,0,0.18); }
@@ -276,11 +270,10 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","맑�
   <!-- 달력 탭 -->
   <div id="tab-calendar" class="content">
     <div class="calendar-header">
-      <button class="btn-nav" onclick="changeMonth(-1)">◀</button>
+      <button class="btn-nav" id="btnPrev">◀</button>
       <h2 id="calTitle"></h2>
-      <button class="btn-nav" onclick="changeMonth(1)">▶</button>
+      <button class="btn-nav" id="btnNext">▶</button>
     </div>
-    <!-- ★ 스와이프 애니메이션 래퍼 -->
     <div class="cal-wrapper">
       <div class="cal-grid" id="calGrid">
         <div class="cal-weekdays">
@@ -292,7 +285,6 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","맑�
         <div class="cal-days" id="calDays"></div>
       </div>
     </div>
-
     <!-- 날짜 상세 -->
     <div class="day-detail" id="dayDetail">
       <h3 id="detailTitle"></h3>
@@ -300,16 +292,7 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","맑�
       <div class="attendance-info" id="attendanceInfo"></div>
       <div class="schedule-list" id="scheduleList"></div>
     </div>
-
-    <!-- 범례 (하단, 작은 폰트) -->
-    <div class="legend">
-      <div class="legend-item"><div class="legend-dot dot-연차"></div>연차</div>
-      <div class="legend-item"><div class="legend-dot dot-반차"></div>반차</div>
-      <div class="legend-item"><div class="legend-dot dot-휴가"></div>휴가</div>
-      <div class="legend-item"><div class="legend-dot dot-공가"></div>공가</div>
-      <div class="legend-item"><div class="legend-dot dot-출장"></div>출장</div>
-      <div class="legend-item"><div class="legend-dot dot-기타"></div>기타</div>
-    </div>
+    <!-- ★ 범례 완전 삭제 -->
   </div>
 
   <!-- 신청 탭 -->
@@ -380,9 +363,7 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","맑�
 
 <!-- 모달들 -->
 <div class="modal-overlay" id="logoutModal">
-  <div class="modal">
-    <h3>⏏ 로그아웃</h3>
-    <p>로그아웃 하시겠습니까?</p>
+  <div class="modal"><h3>⏏ 로그아웃</h3><p>로그아웃 하시겠습니까?</p>
     <div class="modal-actions">
       <button class="btn-cancel-modal" onclick="closeModal('logoutModal')">취소</button>
       <button class="btn-confirm" onclick="confirmLogout()">로그아웃</button>
@@ -390,9 +371,7 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","맑�
   </div>
 </div>
 <div class="modal-overlay" id="deleteModal">
-  <div class="modal">
-    <h3>🗑 삭제 확인</h3>
-    <p>정말 삭제하시겠습니까?</p>
+  <div class="modal"><h3>🗑 삭제 확인</h3><p>정말 삭제하시겠습니까?</p>
     <p style="font-size:12px;color:#a0aec0;margin-top:4px">삭제된 데이터는 복구할 수 없습니다.</p>
     <div class="modal-actions">
       <button class="btn-cancel-modal" onclick="closeModal('deleteModal')">취소</button>
@@ -401,14 +380,11 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","맑�
   </div>
 </div>
 <div class="modal-overlay" id="roleModal">
-  <div class="modal">
-    <h3>권한 변경</h3>
+  <div class="modal"><h3>권한 변경</h3>
     <div class="form-group" style="margin-top:8px">
       <label id="roleModalName"></label>
       <select id="roleSelect" style="width:100%;padding:11px 13px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:14px;background:#fff;color:#2d3748;margin-top:6px">
-        <option value="member">팀원</option>
-        <option value="manager">팀장</option>
-        <option value="master">마스터</option>
+        <option value="member">팀원</option><option value="manager">팀장</option><option value="master">마스터</option>
       </select>
     </div>
     <div class="modal-actions">
@@ -418,9 +394,7 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","맑�
   </div>
 </div>
 <div class="modal-overlay" id="cancelModal">
-  <div class="modal">
-    <h3>신청 취소</h3>
-    <p>이 일정 신청을 취소하시겠습니까?</p>
+  <div class="modal"><h3>신청 취소</h3><p>이 일정 신청을 취소하시겠습니까?</p>
     <div class="modal-actions">
       <button class="btn-cancel-modal" onclick="closeModal('cancelModal')">아니요</button>
       <button class="btn-confirm-danger" onclick="confirmCancel()">취소하기</button>
@@ -457,25 +431,15 @@ let allSchedules=[], allUsers={}, customHolidays=[], signupRequests=[];
 let selectedType='연차', selectedDate=null;
 let cancelTargetId=null, roleTargetId=null, deleteTargetId=null, deleteTargetType=null;
 let unsubSchedules=null, unsubUsers=null, unsubHolidays=null, unsubSignups=null;
-let holidayCache={};
-let isAnimating=false;
+let holidayCache={}, isAnimating=false;
 
-// ★ 날짜 유틸: "YYYY-MM-DD" → 로컬 기준 Date (시간대 버그 방지)
+// ===== 날짜 유틸 =====
 function parseLocalDate(str) {
   const [y,m,d] = str.split('-').map(Number);
   return new Date(y, m-1, d);
 }
 function toLocalDateStr(date) {
-  const y = date.getFullYear();
-  const m = String(date.getMonth()+1).padStart(2,'0');
-  const d = String(date.getDate()).padStart(2,'0');
-  return `${y}-${m}-${d}`;
-}
-function isWeekend(dateStr) {
-  return [0,6].includes(parseLocalDate(dateStr).getDay());
-}
-function getDayOfWeek(dateStr) {
-  return parseLocalDate(dateStr).getDay(); // 0=일, 6=토
+  return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
 }
 
 // ===== 스와이프 =====
@@ -483,31 +447,26 @@ let swipeStartX=0, swipeStartY=0, swipeActive=false;
 function initSwipe() {
   const wrapper = document.querySelector('.cal-wrapper');
   wrapper.addEventListener('touchstart', e => {
-    swipeStartX = e.touches[0].clientX;
-    swipeStartY = e.touches[0].clientY;
-    swipeActive = true;
+    swipeStartX=e.touches[0].clientX; swipeStartY=e.touches[0].clientY; swipeActive=true;
   }, {passive:true});
   wrapper.addEventListener('touchmove', e => {
     if (!swipeActive) return;
-    const dx = e.touches[0].clientX - swipeStartX;
-    const dy = e.touches[0].clientY - swipeStartY;
-    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 10) e.preventDefault();
+    const dx=e.touches[0].clientX-swipeStartX, dy=e.touches[0].clientY-swipeStartY;
+    if (Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>10) e.preventDefault();
   }, {passive:false});
   wrapper.addEventListener('touchend', e => {
-    if (!swipeActive || isAnimating) return;
-    swipeActive = false;
-    const dx = e.changedTouches[0].clientX - swipeStartX;
-    const dy = e.changedTouches[0].clientY - swipeStartY;
-    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 60) {
-      if (dx < 0) changeMonth(1, 'left');
-      else changeMonth(-1, 'right');
+    if (!swipeActive||isAnimating) return;
+    swipeActive=false;
+    const dx=e.changedTouches[0].clientX-swipeStartX, dy=e.changedTouches[0].clientY-swipeStartY;
+    if (Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>60) {
+      if (dx<0) changeMonth(1,'left'); else changeMonth(-1,'right');
     }
   }, {passive:true});
 }
 
 // ===== 인증 =====
 window.switchAuthTab = function(tab) {
-  document.querySelectorAll('.auth-tab').forEach((b,i) => b.classList.toggle('active',(i===0&&tab==='login')||(i===1&&tab==='signup')));
+  document.querySelectorAll('.auth-tab').forEach((b,i)=>b.classList.toggle('active',(i===0&&tab==='login')||(i===1&&tab==='signup')));
   document.getElementById('panel-login').classList.toggle('active',tab==='login');
   document.getElementById('panel-signup').classList.toggle('active',tab==='signup');
   ['loginError','signupError','signupSuccess'].forEach(id=>document.getElementById(id).textContent='');
@@ -518,32 +477,31 @@ window.doLogin = async function() {
   const id=document.getElementById('loginId').value.trim();
   const pw=document.getElementById('loginPw').value;
   document.getElementById('loginError').textContent='';
-  if (!id||!pw) { document.getElementById('loginError').textContent='아이디와 비밀번호를 입력하세요.'; return; }
-  try { await signInWithEmailAndPassword(auth,idToEmail(id),pw); }
-  catch(e) { document.getElementById('loginError').textContent='아이디 또는 비밀번호가 올바르지 않습니다.'; }
+  if (!id||!pw){document.getElementById('loginError').textContent='아이디와 비밀번호를 입력하세요.';return;}
+  try{await signInWithEmailAndPassword(auth,idToEmail(id),pw);}
+  catch(e){document.getElementById('loginError').textContent='아이디 또는 비밀번호가 올바르지 않습니다.';}
 };
 
 window.doSignup = async function() {
   const id=document.getElementById('signupId').value.trim().toLowerCase();
   const pw=document.getElementById('signupPw').value;
   const nick=document.getElementById('signupNick').value.trim();
-  const errEl=document.getElementById('signupError');
-  const sucEl=document.getElementById('signupSuccess');
+  const errEl=document.getElementById('signupError'), sucEl=document.getElementById('signupSuccess');
   errEl.textContent=''; sucEl.textContent='';
-  if (!id||!pw||!nick) { errEl.textContent='모든 항목을 입력하세요.'; return; }
-  if (!/^[a-z0-9]{4,20}$/.test(id)) { errEl.textContent='아이디는 영문 소문자+숫자 4~20자로 입력하세요.'; return; }
-  if (pw.length<6) { errEl.textContent='비밀번호는 6자 이상이어야 합니다.'; return; }
-  try {
+  if (!id||!pw||!nick){errEl.textContent='모든 항목을 입력하세요.';return;}
+  if (!/^[a-z0-9]{4,20}$/.test(id)){errEl.textContent='아이디는 영문 소문자+숫자 4~20자로 입력하세요.';return;}
+  if (pw.length<6){errEl.textContent='비밀번호는 6자 이상이어야 합니다.';return;}
+  try{
     const existing=await getDoc(doc(db,'signupRequests',id));
-    if (existing.exists()) { errEl.textContent='이미 사용 중이거나 신청된 아이디입니다.'; return; }
+    if (existing.exists()){errEl.textContent='이미 사용 중이거나 신청된 아이디입니다.';return;}
     await setDoc(doc(db,'signupRequests',id),{userId:id,nickname:nick,password:pw,status:'pending',createdAt:serverTimestamp()});
     sucEl.textContent='가입 신청이 완료되었습니다! 관리자 승인 후 로그인 가능합니다.';
     ['signupId','signupPw','signupNick'].forEach(id=>document.getElementById(id).value='');
-  } catch(e) { errEl.textContent='신청 중 오류가 발생했습니다: '+e.message; }
+  }catch(e){errEl.textContent='신청 중 오류: '+e.message;}
 };
 
-window.openLogoutModal = function() { document.getElementById('logoutModal').classList.add('show'); };
-window.confirmLogout = async function() {
+window.openLogoutModal=function(){document.getElementById('logoutModal').classList.add('show');};
+window.confirmLogout=async function(){
   closeModal('logoutModal');
   [unsubSchedules,unsubUsers,unsubHolidays,unsubSignups].forEach(u=>u&&u());
   await signOut(auth);
@@ -552,24 +510,24 @@ window.confirmLogout = async function() {
 document.getElementById('loginPw').addEventListener('keyup',e=>{if(e.key==='Enter')doLogin();});
 document.getElementById('loginId').addEventListener('keyup',e=>{if(e.key==='Enter')document.getElementById('loginPw').focus();});
 
-onAuthStateChanged(auth, async(user)=>{
-  if (user) {
+onAuthStateChanged(auth,async(user)=>{
+  if (user){
     currentUser=user;
     const uDoc=await getDoc(doc(db,'users',user.uid));
-    if (uDoc.exists()) { currentUserData=uDoc.data(); }
-    else {
+    if (uDoc.exists()){currentUserData=uDoc.data();}
+    else{
       currentUserData={name:user.email.split('@')[0],nickname:user.email.split('@')[0],role:'master',userId:user.email.split('@')[0]};
       await setDoc(doc(db,'users',user.uid),{...currentUserData,createdAt:serverTimestamp()});
     }
     initApp();
-  } else {
-    currentUser=null; currentUserData=null;
+  }else{
+    currentUser=null;currentUserData=null;
     document.getElementById('loginPage').style.display='flex';
     document.getElementById('app').style.display='none';
   }
 });
 
-function initApp() {
+function initApp(){
   document.getElementById('loginPage').style.display='none';
   document.getElementById('app').style.display='flex';
   document.getElementById('app').style.flexDirection='column';
@@ -578,42 +536,44 @@ function initApp() {
   const rb=document.getElementById('roleBadge');
   rb.textContent=roleLabels[currentUserData.role]||'팀원';
   rb.className='role-badge '+(currentUserData.role||'member');
-  const today=new Date();
-  const todayStr=toLocalDateStr(today);
+  const todayStr=toLocalDateStr(new Date());
   document.getElementById('startDate').value=todayStr;
   document.getElementById('endDate').value=todayStr;
   const role=currentUserData.role;
-  if (role==='master') {
+  if (role==='master'){
     document.getElementById('tabAdmin').style.display='';
     document.getElementById('tabMembers').style.display='';
     document.getElementById('tabSettings').style.display='';
     document.getElementById('signupApprovalCard').style.display='';
-  } else if (role==='manager') {
+  }else if(role==='manager'){
     document.getElementById('tabAdmin').style.display='';
   }
+  // 버튼 이벤트
+  document.getElementById('btnPrev').addEventListener('click',()=>changeMonth(-1,'right'));
+  document.getElementById('btnNext').addEventListener('click',()=>changeMonth(1,'left'));
   initSwipe();
   subscribeAll();
 }
 
-function subscribeAll() {
+function subscribeAll(){
   unsubSchedules=onSnapshot(query(collection(db,'schedules'),orderBy('startDate')),snap=>{
     allSchedules=snap.docs.map(d=>({id:d.id,...d.data()}));
     renderCalendar(); renderMyRequests();
-    if (currentUserData.role!=='member') { renderPendingList(); renderAllRequests(); updatePendingBadge(); }
-    if (selectedDate) showDayDetail(selectedDate);
+    if(currentUserData.role!=='member'){renderPendingList();renderAllRequests();updatePendingBadge();}
+    if(selectedDate) showDayDetail(selectedDate);
   });
   unsubUsers=onSnapshot(query(collection(db,'users'),orderBy('nickname')),snap=>{
     allUsers={};
     snap.docs.forEach(d=>{allUsers[d.id]={id:d.id,...d.data()};});
     renderMemberList();
-    if (selectedDate) showDayDetail(selectedDate);
+    if(selectedDate) showDayDetail(selectedDate);
   });
   unsubHolidays=onSnapshot(query(collection(db,'holidays'),orderBy('date')),snap=>{
     customHolidays=snap.docs.map(d=>({id:d.id,...d.data()}));
     renderCustomHolidayList(); renderCalendar();
-    if (selectedDate) showDayDetail(selectedDate);
+    if(selectedDate) showDayDetail(selectedDate);
   });
-  if (currentUserData.role==='master') {
+  if(currentUserData.role==='master'){
     unsubSignups=onSnapshot(query(collection(db,'signupRequests'),where('status','==','pending')),snap=>{
       signupRequests=snap.docs.map(d=>({id:d.id,...d.data()}));
       renderSignupPending(); updatePendingBadge();
@@ -622,52 +582,47 @@ function subscribeAll() {
 }
 
 // ===== 공휴일 API =====
-async function fetchHolidays(year,month) {
+async function fetchHolidays(year,month){
   const key=`${year}${String(month).padStart(2,'0')}`;
-  if (holidayCache[key]) return holidayCache[key];
-  try {
+  if(holidayCache[key]) return holidayCache[key];
+  try{
     const url=`https://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getRestDeInfo?serviceKey=${HOLIDAY_API_KEY}&solYear=${year}&solMonth=${String(month).padStart(2,'0')}&_type=json&numOfRows=50`;
     const res=await fetch(url);
     const json=await res.json();
     const items=json?.response?.body?.items?.item;
     const result={};
-    if (items) { const arr=Array.isArray(items)?items:[items]; arr.forEach(h=>{result[String(h.locdate)]=h.dateName;}); }
+    if(items){const arr=Array.isArray(items)?items:[items];arr.forEach(h=>{result[String(h.locdate)]=h.dateName;});}
     holidayCache[key]=result;
     return result;
-  } catch(e) { return {}; }
+  }catch(e){return{};}
 }
-function getCustomHolidayMap() {
+function getCustomHolidayMap(){
   const map={};
   customHolidays.forEach(h=>{map[h.date.replace(/-/g,'')]=h.name;});
   return map;
 }
 
 // ===== 달력 =====
-window.changeMonth = function(delta, direction) {
-  if (isAnimating) return;
-  isAnimating = true;
-  const grid = document.getElementById('calGrid');
-  const slideAnim = direction==='left' ? 'slide-left' : 'slide-right';
-  const enterAnim = direction==='left' ? 'enter-left' : 'enter-right';
+window.changeMonth=function(delta,direction){
+  if(isAnimating) return;
+  isAnimating=true;
+  const grid=document.getElementById('calGrid');
+  const slideAnim=direction==='left'?'slide-left':'slide-right';
+  const enterAnim=direction==='left'?'enter-left':'enter-right';
   grid.classList.add(slideAnim);
-  setTimeout(async () => {
+  setTimeout(async()=>{
     grid.classList.remove(slideAnim);
-    currentMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth()+delta, 1);
-    selectedDate = null;
+    currentMonth=new Date(currentMonth.getFullYear(),currentMonth.getMonth()+delta,1);
+    selectedDate=null;
     document.getElementById('dayDetail').classList.remove('show');
     await renderCalendar();
     grid.classList.add(enterAnim);
-    setTimeout(() => { grid.classList.remove(enterAnim); isAnimating=false; }, 300);
-  }, 280);
+    setTimeout(()=>{grid.classList.remove(enterAnim);isAnimating=false;},300);
+  },280);
 };
 
-// 버튼 클릭 시 방향 자동 판단
-document.querySelector('.btn-nav:first-of-type')?.addEventListener('click', ()=>changeMonth(-1,'right'));
-document.querySelector('.btn-nav:last-of-type')?.addEventListener('click', ()=>changeMonth(1,'left'));
-
-async function renderCalendar() {
-  const year=currentMonth.getFullYear();
-  const month=currentMonth.getMonth()+1;
+async function renderCalendar(){
+  const year=currentMonth.getFullYear(), month=currentMonth.getMonth()+1;
   document.getElementById('calTitle').textContent=`${year}년 ${month}월`;
   const apiHolidays=await fetchHolidays(year,month);
   const customMap=getCustomHolidayMap();
@@ -676,15 +631,15 @@ async function renderCalendar() {
   const lastDate=new Date(year,month,0).getDate();
   const todayStr=toLocalDateStr(new Date());
 
-  // ★ 날짜별 일정 집계 (로컬 날짜 기준, 버그 수정)
+  // 날짜별 일정 집계 (로컬 날짜 기준)
   const dayMap={};
   allSchedules.filter(s=>s.status==='approved').forEach(s=>{
     let d=parseLocalDate(s.startDate);
     const end=parseLocalDate(s.endDate);
-    while (d<=end) {
+    while(d<=end){
       const key=toLocalDateStr(d);
-      if (!dayMap[key]) dayMap[key]={};
-      if (!dayMap[key][s.type]) dayMap[key][s.type]=0;
+      if(!dayMap[key]) dayMap[key]={};
+      if(!dayMap[key][s.type]) dayMap[key][s.type]=0;
       dayMap[key][s.type]++;
       d.setDate(d.getDate()+1);
     }
@@ -692,21 +647,21 @@ async function renderCalendar() {
 
   let html='';
 
-  // ★ 이전달 날짜 (클릭 가능 - 해당 달로 이동)
-  for (let i=0;i<firstDay;i++) {
+  // 이전달
+  for(let i=0;i<firstDay;i++){
     const d=new Date(year,month-1,-firstDay+i+1);
     const dateStr=toLocalDateStr(d);
     const dow=d.getDay();
     let cls='cal-day other-month';
-    if (dow===0) cls+=' sunday';
-    if (dow===6) cls+=' saturday';
+    if(dow===0) cls+=' sunday';
+    if(dow===6) cls+=' saturday';
     html+=`<div class="${cls}" onclick="changeMonth(-1,'right');setTimeout(()=>showDayDetail('${dateStr}'),350)">
       <div class="day-num">${d.getDate()}</div>
     </div>`;
   }
 
-  // 이번달 날짜
-  for (let d=1;d<=lastDate;d++) {
+  // 이번달
+  for(let d=1;d<=lastDate;d++){
     const dateStr=`${year}-${String(month).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
     const dateKey=dateStr.replace(/-/g,'');
     const events=dayMap[dateStr]||{};
@@ -715,19 +670,17 @@ async function renderCalendar() {
     const holidayName=allHolidays[dateKey];
     const isHoliday=!!holidayName;
     const dow=parseLocalDate(dateStr).getDay();
-    let cls='cal-day';
-    if (dow===0) cls+=' sunday';
-    if (dow===6) cls+=' saturday';
-    if (isToday) cls+=' today';
-    if (isSelected) cls+=' selected';
-    if (isHoliday) cls+=' holiday-day';
 
-    // ★ 일정 표시: 종류별 점 1개 + 숫자
+    let cls='cal-day';
+    if(dow===0) cls+=' sunday';
+    if(dow===6) cls+=' saturday';
+    if(isHoliday) cls+=' holiday-day'; // ★ 공휴일 배경 (일요일보다 우선)
+    if(isToday) cls+=' today';
+    if(isSelected) cls+=' selected';
+
+    // ★ 일정 텍스트 표시 (연차 2 형태)
     const eventRows=Object.entries(events).slice(0,3).map(([type,count])=>
-      `<div class="day-event-row">
-        <div class="day-dot dot-${type}"></div>
-        ${count>1?`<span class="day-event-count">${count}</span>`:''}
-      </div>`
+      `<div class="day-event-text ev-${type}">${type}${count>1?' '+count:''}</div>`
     ).join('');
 
     const hNameHtml=holidayName?`<div class="day-holiday-name" title="${holidayName}">${holidayName}</div>`:'';
@@ -738,15 +691,15 @@ async function renderCalendar() {
     </div>`;
   }
 
-  // ★ 다음달 날짜 (클릭 가능 - 다음달로 이동)
+  // 다음달
   const remaining=(7-(firstDay+lastDate)%7)%7;
-  for (let d=1;d<=remaining;d++) {
+  for(let d=1;d<=remaining;d++){
     const nextDate=new Date(year,month,d);
     const dateStr=toLocalDateStr(nextDate);
     const dow=nextDate.getDay();
     let cls='cal-day other-month';
-    if (dow===0) cls+=' sunday';
-    if (dow===6) cls+=' saturday';
+    if(dow===0) cls+=' sunday';
+    if(dow===6) cls+=' saturday';
     html+=`<div class="${cls}" onclick="changeMonth(1,'left');setTimeout(()=>showDayDetail('${dateStr}'),350)">
       <div class="day-num">${d}</div>
     </div>`;
@@ -755,9 +708,9 @@ async function renderCalendar() {
   document.getElementById('calDays').innerHTML=html;
 }
 
-window.showDayDetail = async function(dateStr) {
+window.showDayDetail=async function(dateStr){
   selectedDate=dateStr;
-  renderCalendar(); // await 없이 (빠른 반응)
+  renderCalendar();
   const detail=document.getElementById('dayDetail');
   detail.classList.add('show');
   const d=parseLocalDate(dateStr);
@@ -768,8 +721,8 @@ window.showDayDetail = async function(dateStr) {
   const dateKey=dateStr.replace(/-/g,'');
   const holidayName=allHolidays[dateKey];
   const banner=document.getElementById('holidayBanner');
-  if (holidayName) { banner.textContent=`🔴 ${holidayName}`; banner.style.display=''; }
-  else { banner.style.display='none'; }
+  if(holidayName){banner.textContent=`🔴 ${holidayName}`;banner.style.display='';}
+  else{banner.style.display='none';}
 
   const daySchedules=allSchedules.filter(s=>s.status!=='rejected'&&s.startDate<=dateStr&&s.endDate>=dateStr);
   const counselorCount=Object.values(allUsers).filter(u=>u.group==='counselor').length;
@@ -780,7 +733,7 @@ window.showDayDetail = async function(dateStr) {
   document.getElementById('attendanceInfo').textContent=
     (counselorCount>0&&!isWeekendDay&&!holidayName)?`근무 인원 : ${present}명`:'';
 
-  if (daySchedules.length===0) {
+  if(daySchedules.length===0){
     document.getElementById('scheduleList').innerHTML='<div style="color:#a0aec0;font-size:14px;padding:10px 0">이날 일정이 없습니다.</div>';
     detail.scrollIntoView({behavior:'smooth',block:'nearest'});
     return;
@@ -792,10 +745,10 @@ window.showDayDetail = async function(dateStr) {
     const user=allUsers[s.userId]||{nickname:s.userName||'?'};
     const name=user.nickname||user.name||'?';
     let actions='';
-    if ((role==='master'||role==='manager')&&s.status==='pending') {
+    if((role==='master'||role==='manager')&&s.status==='pending'){
       actions+=`<button class="btn-approve" onclick="approveSchedule('${s.id}')">확정</button>`;
     }
-    if (role==='master'||role==='manager'||s.userId===currentUser.uid) {
+    if(role==='master'||role==='manager'||s.userId===currentUser.uid){
       actions+=` <button class="btn-delete" onclick="openDeleteModal('${s.id}','schedule')">삭제</button>`;
     }
     return `<div class="schedule-item">
@@ -824,8 +777,8 @@ window.submitRequest=async function(){
   const start=document.getElementById('startDate').value;
   const end=document.getElementById('endDate').value;
   const note=document.getElementById('requestNote').value.trim();
-  if (!start||!end){showToast('날짜를 선택하세요.');return;}
-  if (start>end){showToast('종료일이 시작일보다 빠릅니다.');return;}
+  if(!start||!end){showToast('날짜를 선택하세요.');return;}
+  if(start>end){showToast('종료일이 시작일보다 빠릅니다.');return;}
   try{
     const nick=currentUserData.nickname||currentUserData.name||'';
     await addDoc(collection(db,'schedules'),{userId:currentUser.uid,userName:nick,type:selectedType,startDate:start,endDate:end,note,status:'pending',createdAt:serverTimestamp()});
@@ -836,7 +789,7 @@ window.submitRequest=async function(){
 
 function renderMyRequests(){
   const mine=allSchedules.filter(s=>s.userId===currentUser.uid).sort((a,b)=>b.startDate.localeCompare(a.startDate));
-  if (mine.length===0){document.getElementById('myRequests').innerHTML='<div class="empty-state"><div class="icon">📋</div><p>신청 내역이 없습니다.</p></div>';return;}
+  if(mine.length===0){document.getElementById('myRequests').innerHTML='<div class="empty-state"><div class="icon">📋</div><p>신청 내역이 없습니다.</p></div>';return;}
   const statusMap={pending:'⏳ 대기중',approved:'✅ 확정'};
   const statusCls={pending:'status-pending',approved:'status-approved'};
   document.getElementById('myRequests').innerHTML=mine.map(s=>`
@@ -851,7 +804,6 @@ function renderMyRequests(){
     </div>`).join('');
 }
 
-// ===== 가입 승인 =====
 function renderSignupPending(){
   if(signupRequests.length===0){document.getElementById('signupPendingList').innerHTML='<div class="empty-state"><div class="icon">✅</div><p>대기 중인 가입 신청이 없습니다.</p></div>';return;}
   document.getElementById('signupPendingList').innerHTML=signupRequests.map(r=>`
@@ -886,7 +838,6 @@ window.rejectSignup=async function(docId){
   catch(e){showToast('오류가 발생했습니다.');}
 };
 
-// ===== 일정 승인/목록 =====
 function renderPendingList(){
   const pending=allSchedules.filter(s=>s.status==='pending').sort((a,b)=>a.startDate.localeCompare(b.startDate));
   if(pending.length===0){document.getElementById('pendingList').innerHTML='<div class="empty-state"><div class="icon">✅</div><p>대기 중인 일정이 없습니다.</p></div>';return;}
@@ -935,7 +886,6 @@ window.approveSchedule=async function(id){
   catch(e){showToast('오류가 발생했습니다.');}
 };
 
-// ===== 삭제/취소 모달 =====
 window.openDeleteModal=function(id,type){deleteTargetId=id;deleteTargetType=type;document.getElementById('deleteModal').classList.add('show');};
 window.confirmDelete=async function(){
   closeModal('deleteModal');
@@ -962,7 +912,6 @@ window.confirmCancel=async function(){
   }
 };
 
-// ===== 구성원 =====
 function renderMemberList(){
   const members=Object.values(allUsers).sort((a,b)=>(a.nickname||'').localeCompare(b.nickname||''));
   if(members.length===0){document.getElementById('memberList').innerHTML='<div class="empty-state"><p>구성원이 없습니다.</p></div>';return;}
@@ -973,10 +922,7 @@ function renderMemberList(){
     return `<div class="member-item">
       <div class="member-info">
         <div class="member-avatar">${name[0]}</div>
-        <div>
-          <div class="member-name">${name}</div>
-          <div class="member-id">@${u.userId||''}</div>
-        </div>
+        <div><div class="member-name">${name}</div><div class="member-id">@${u.userId||''}</div></div>
       </div>
       <div class="member-actions">
         <div class="group-toggle">
@@ -1008,7 +954,6 @@ window.confirmRoleChange=async function(){
   roleTargetId=null;
 };
 
-// ===== 커스텀 공휴일 =====
 window.addCustomHoliday=async function(){
   const date=document.getElementById('holidayDate').value;
   const name=document.getElementById('holidayName').value.trim();
@@ -1024,15 +969,11 @@ function renderCustomHolidayList(){
   if(customHolidays.length===0){document.getElementById('customHolidayList').innerHTML='<div style="color:#a0aec0;font-size:14px;padding:10px 0">등록된 커스텀 공휴일이 없습니다.</div>';return;}
   document.getElementById('customHolidayList').innerHTML=customHolidays.map(h=>`
     <div class="holiday-item">
-      <div>
-        <span class="holiday-date">${h.date}</span>
-        <span class="holiday-name-text" style="margin-left:10px">${h.name}</span>
-      </div>
+      <div><span class="holiday-date">${h.date}</span><span class="holiday-name-text" style="margin-left:10px">${h.name}</span></div>
       <button class="btn-del-holiday" onclick="openDeleteModal('${h.id}','holiday')">🗑</button>
     </div>`).join('');
 }
 
-// ===== 탭 전환 =====
 window.showTab=function(tab,el){
   ['calendar','request','admin','members','settings'].forEach(t=>{
     document.getElementById('tab-'+t).style.display=t===tab?'':'none';
@@ -1041,7 +982,6 @@ window.showTab=function(tab,el){
   if(el) el.classList.add('active');
 };
 
-// ===== 유틸 =====
 window.closeModal=function(id){document.getElementById(id).classList.remove('show');};
 function showToast(msg){
   const t=document.getElementById('toast');
